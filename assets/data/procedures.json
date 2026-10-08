@@ -1,0 +1,96 @@
+[
+    {
+        "id":  "marriage-registration",
+        "title":  "Đăng ký kết hôn",
+        "category":  "Hộ tịch",
+        "description":  "Thủ tục đăng ký kết hôn tại Ủy ban nhân dân cấp xã nơi cư trú của một trong hai bên.",
+        "agency":  "Ủy ban nhân dân cấp xã",
+        "duration":  "05 ngày làm việc",
+        "fee":  "Miễn phí",
+        "updatedAt":  "2026-09-15",
+        "status":  "published",
+        "steps":  [
+                      "Chuẩn bị tờ khai đăng ký kết hôn và giấy tờ tùy thân.",
+                      "Nộp hồ sơ trực tiếp tại bộ phận một cửa.",
+                      "Cùng ký vào Sổ hộ tịch và nhận Giấy chứng nhận kết hôn."
+                  ]
+    },
+    {
+        "id":  "birth-registration",
+        "title":  "Đăng ký khai sinh",
+        "category":  "Hộ tịch",
+        "description":  "Đăng ký khai sinh cho trẻ em tại cơ quan hộ tịch có thẩm quyền.",
+        "agency":  "Ủy ban nhân dân cấp xã",
+        "duration":  "Trong ngày tiếp nhận hồ sơ",
+        "fee":  "Miễn phí",
+        "updatedAt":  "2026-09-12",
+        "status":  "published",
+        "steps":  [
+                      "Điền tờ khai đăng ký khai sinh.",
+                      "Nộp giấy chứng sinh và giấy tờ tùy thân của người đi đăng ký.",
+                      "Kiểm tra thông tin và nhận Giấy khai sinh."
+                  ]
+    },
+    {
+        "id":  "residence-confirmation",
+        "title":  "Xác nhận thông tin cư trú",
+        "category":  "Cư trú",
+        "description":  "Yêu cầu cấp văn bản xác nhận thông tin về nơi cư trú hiện tại.",
+        "agency":  "Công an cấp xã",
+        "duration":  "01 ngày làm việc",
+        "fee":  "Miễn phí",
+        "updatedAt":  "2026-08-28",
+        "status":  "published",
+        "steps":  [
+                      "Gửi yêu cầu xác nhận thông tin cư trú trực tuyến hoặc trực tiếp.",
+                      "Cung cấp thông tin định danh cá nhân.",
+                      "Nhận kết quả điện tử hoặc bản giấy."
+                  ]
+    },
+    {
+        "id":  "business-household",
+        "title":  "Đăng ký hộ kinh doanh",
+        "category":  "Kinh doanh",
+        "description":  "Đăng ký thành lập hộ kinh doanh tại cơ quan đăng ký kinh doanh cấp huyện.",
+        "agency":  "Cơ quan đăng ký kinh doanh cấp huyện",
+        "duration":  "03 ngày làm việc",
+        "fee":  "Tùy địa phương",
+        "updatedAt":  "2026-08-20",
+        "status":  "published",
+        "steps":  [
+                      "Chuẩn bị giấy đề nghị đăng ký hộ kinh doanh.",
+                      "Nộp hồ sơ tại cơ quan đăng ký kinh doanh.",
+                      "Nhận giấy chứng nhận hoặc thông báo bổ sung hồ sơ."
+                  ]
+    },
+    {
+        "id":  "land-certificate",
+        "title":  "Cấp giấy chứng nhận quyền sử dụng đất",
+        "category":  "Đất đai",
+        "description":  "Hướng dẫn hồ sơ đề nghị cấp giấy chứng nhận quyền sử dụng đất lần đầu.",
+        "agency":  "Văn phòng đăng ký đất đai",
+        "duration":  "Theo quy định địa phương",
+        "fee":  "Theo quy định hiện hành",
+        "updatedAt":  "2026-08-05",
+        "status":  "published",
+        "steps":  [
+                      "Chuẩn bị giấy tờ về quyền sử dụng đất.",
+                      "Nộp hồ sơ tại bộ phận tiếp nhận hồ sơ.",
+                      "Theo dõi tiến độ và nhận kết quả."
+                  ]
+    },
+    {
+        "id":  "marriage-registration-updated",
+        "title":  "Cập nhật thủ tục đăng ký kết hôn",
+        "category":  "Hộ tịch",
+        "description":  "Bản cập nhật đang chờ biên tập và phê duyệt.",
+        "agency":  "Ủy ban nhân dân cấp xã",
+        "duration":  "05 ngày làm việc",
+        "fee":  "Miễn phí",
+        "updatedAt":  "2026-10-01",
+        "status":  "pending",
+        "steps":  [
+                      "Kiểm tra hồ sơ theo quy định mới."
+                  ]
+    }
+]

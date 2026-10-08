@@ -1,0 +1,34 @@
+:root {
+  color-scheme: light;
+  --ink: #142a25;
+  --muted: #667771;
+  --line: #e4ebe6;
+  --paper: #ffffff;
+  --canvas: #f5f8f5;
+  --green: #176b52;
+  --green-dark: #10543f;
+  --mint: #e7f3ed;
+  --lime: #dff17d;
+  --orange: #e88950;
+  --danger: #b83e3e;
+  --shadow: 0 18px 50px rgba(19, 54, 40, .08);
+  font-family: "Segoe UI", Inter, Arial, sans-serif;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; min-width: 320px; background: var(--canvas); color: var(--ink); line-height: 1.55; }
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+a { color: inherit; text-decoration: none; }
+button { cursor: pointer; }
+img, svg { display: block; max-width: 100%; }
+h1, h2, h3, p { margin-top: 0; }
+h1, h2, h3 { line-height: 1.18; letter-spacing: -.035em; }
+h1 { font-size: clamp(2.25rem, 4.8vw, 4.25rem); }
+h2 { font-size: clamp(1.55rem, 2.7vw, 2.35rem); }
+::selection { background: #d9ecbd; color: var(--ink); }
+.muted { color: var(--muted); }
+.eyebrow { color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }

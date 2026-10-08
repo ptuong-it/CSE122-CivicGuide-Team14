@@ -1,0 +1,88 @@
+[
+  {
+    "id": "demo-citizen",
+    "email": "citizen@civicguide.vn",
+    "displayName": "Công dân mẫu",
+    "role": "citizen",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "createdAt": "2026-01-01",
+    "checklistProgress": {}
+  },
+  {
+    "id": "demo-officer",
+    "email": "officer@civicguide.vn",
+    "displayName": "Cán bộ mẫu",
+    "role": "officer",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "demo-editor",
+    "email": "editor@civicguide.vn",
+    "displayName": "Biên tập viên mẫu",
+    "role": "editor",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "demo-admin",
+    "email": "admin@civicguide.vn",
+    "displayName": "Quản trị viên mẫu",
+    "role": "admin",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "createdAt": "2026-01-01"
+  },
+  {
+    "id": "43d22694-d773-4729-bcde-d2d34e2ac0ba",
+    "displayName": "Phạm Chí Tường",
+    "email": "ptuong02122007@gmail.com",
+    "role": "citizen",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "checklistProgress": {},
+    "createdAt": "2026-10-08"
+  },
+  {
+    "id": "c431d7ef-7cea-4e09-99e1-f0157252ab9c",
+    "displayName": "Phạm Chí Tường",
+    "email": "a@gmail.com",
+    "role": "citizen",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "checklistProgress": {
+      "birth": [
+        "Tờ khai đăng ký khai sinh"
+      ],
+      "marriage": [
+        "Tờ khai đăng ký kết hôn theo mẫu",
+        "CCCD/hộ chiếu còn hiệu lực của hai bên",
+        "Giấy xác nhận tình trạng hôn nhân (nếu cần)"
+      ],
+      "residence": [
+        "CCCD hoặc mã định danh cá nhân"
+      ]
+    },
+    "createdAt": "2026-10-08"
+  },
+  {
+    "id": "666568e6-38f8-4dab-aafe-36756700cd6d",
+    "displayName": "kiên",
+    "email": "kien@gmail.com",
+    "role": "citizen",
+    "active": true,
+    "salt": "56a8f0d5584ba47bceccb4c12f27ae59",
+    "passwordHash": "2d00dfe8a8dfe74d376de7ec9c57003a64e6dc4f8b4628d6a40a13e1ca71cffea96c20e09ca65d5fbe8c9b279bf8a0a09118e5db30fcca18e2b4503188534f9e",
+    "checklistProgress": {},
+    "createdAt": "2026-10-08"
+  }
+]

@@ -1,0 +1,18 @@
+[
+  {
+    "id": "source-1",
+    "title": "Cổng Dịch vụ công Quốc gia",
+    "url": "https://dichvucong.gov.vn",
+    "agency": "Văn phòng Chính phủ",
+    "checkedAt": "2026-09-20",
+    "status": "active"
+  },
+  {
+    "id": "source-2",
+    "title": "Cơ sở dữ liệu quốc gia về văn bản pháp luật",
+    "url": "https://vbpl.vn",
+    "agency": "Bộ Tư pháp",
+    "checkedAt": "2026-09-18",
+    "status": "active"
+  }
+]

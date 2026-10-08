@@ -1,0 +1,23 @@
+[
+  {
+    "id": "faq-1",
+    "question": "Tôi có thể nộp hồ sơ trực tuyến ở đâu?",
+    "answer": "Bạn có thể tìm thủ tục trên Cổng Dịch vụ công Quốc gia tại dichvucong.gov.vn. Một số thủ tục hỗ trợ nộp và theo dõi hồ sơ trực tuyến.",
+    "category": "Nộp hồ sơ",
+    "status": "published"
+  },
+  {
+    "id": "faq-2",
+    "question": "Làm sao để theo dõi hồ sơ đã nộp?",
+    "answer": "Đăng nhập CivicGuide, mở mục Hồ sơ của tôi và chọn hồ sơ cần theo dõi. Mã hồ sơ cũng có thể được tra cứu trên cổng dịch vụ công nơi bạn đã nộp.",
+    "category": "Theo dõi hồ sơ",
+    "status": "published"
+  },
+  {
+    "id": "faq-3",
+    "question": "Thông tin trên CivicGuide có thay thế tư vấn pháp lý không?",
+    "answer": "Không. CivicGuide giúp bạn tìm hiểu quy trình; hãy liên hệ cơ quan tiếp nhận để xác nhận yêu cầu cụ thể theo địa phương.",
+    "category": "Thông tin chung",
+    "status": "published"
+  }
+]

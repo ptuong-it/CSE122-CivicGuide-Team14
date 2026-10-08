@@ -1,0 +1,31 @@
+[
+  {
+    "id": "marriage",
+    "procedureId": "marriage-registration",
+    "title": "Đăng ký kết hôn",
+    "items": [
+      "Tờ khai đăng ký kết hôn theo mẫu",
+      "CCCD/hộ chiếu còn hiệu lực của hai bên",
+      "Giấy xác nhận tình trạng hôn nhân (nếu cần)"
+    ]
+  },
+  {
+    "id": "birth",
+    "procedureId": "birth-registration",
+    "title": "Đăng ký khai sinh",
+    "items": [
+      "Tờ khai đăng ký khai sinh",
+      "Giấy chứng sinh",
+      "Giấy tờ tùy thân của người đi đăng ký"
+    ]
+  },
+  {
+    "id": "residence",
+    "procedureId": "residence-confirmation",
+    "title": "Xác nhận thông tin cư trú",
+    "items": [
+      "Tờ khai thay đổi thông tin cư trú (nếu nộp trực tiếp)",
+      "CCCD hoặc mã định danh cá nhân"
+    ]
+  }
+]

@@ -1,0 +1,6 @@
+import { escapeHtml } from "./dom-utils.js";
+
+export function procedureDetails(procedure) {
+  const steps = procedure.steps?.length ? procedure.steps : ["Liên hệ cơ quan tiếp nhận để được hướng dẫn các bước cụ thể."];
+  return `<div class="page-heading"><div><span class="eyebrow">${escapeHtml(procedure.category)}</span><h1>${escapeHtml(procedure.title)}</h1><p>${escapeHtml(procedure.description)}</p></div></div><div class="content-layout"><section class="panel"><h2>Các bước thực hiện</h2><ol>${steps.map((step) => `<li>${escapeHtml(step)}</li>`).join("")}</ol><button class="button" data-action="apply" data-id="${escapeHtml(procedure.id)}">Tạo hồ sơ theo dõi</button></section><aside class="panel"><h3>Thông tin tham khảo</h3><p><strong>Cơ quan:</strong><br>${escapeHtml(procedure.agency)}</p><p><strong>Thời hạn:</strong><br>${escapeHtml(procedure.duration)}</p><p><strong>Lệ phí:</strong><br>${escapeHtml(procedure.fee)}</p><p class="muted">Cập nhật ${escapeHtml(procedure.updatedAt)}</p></aside></div>`;
+}
