@@ -5,6 +5,7 @@
   .service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .stats-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .content-layout { grid-template-columns: 1fr; }
+  .procedure-detail-layout { grid-template-columns: 1fr; }
 }
 @media (max-width: 680px) {
   .header-inner { width: calc(100% - 32px); min-height: 66px; flex-wrap: wrap; }
@@ -24,6 +25,10 @@
   .section-heading, .page-heading { align-items: start; flex-direction: column; }
   .service-grid { grid-template-columns: 1fr; }
   .service-card { min-height: 0; }
+  .procedure-dialog { width: calc(100% - 20px); max-height: 92vh; padding: 14px 12px 20px; }
+  .procedure-dialog-close { top: -14px; margin: -14px 0 4px; }
+  .procedure-step-list li { grid-template-columns: 30px minmax(0, 1fr); gap: 9px; padding: 14px 0; }
+  .procedure-step-number { width: 29px; height: 29px; }
   .assistant-banner { align-items: start; flex-direction: column; padding: 24px; }
   .stats-grid { gap: 10px; }
   .stat-card { padding: 15px; }

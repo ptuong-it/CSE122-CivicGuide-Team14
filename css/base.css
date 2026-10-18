@@ -32,3 +32,4 @@ h2 { font-size: clamp(1.55rem, 2.7vw, 2.35rem); }
 .muted { color: var(--muted); }
 .eyebrow { color: var(--green); font-size: .75rem; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; }
+[hidden] { display: none !important; }

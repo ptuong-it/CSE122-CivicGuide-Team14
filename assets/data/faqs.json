@@ -2,22 +2,57 @@
   {
     "id": "faq-1",
     "question": "Tôi có thể nộp hồ sơ trực tuyến ở đâu?",
-    "answer": "Bạn có thể tìm thủ tục trên Cổng Dịch vụ công Quốc gia tại dichvucong.gov.vn. Một số thủ tục hỗ trợ nộp và theo dõi hồ sơ trực tuyến.",
+    "answer": "Bạn có thể tìm tên thủ tục trên Cổng Dịch vụ công Quốc gia tại dichvucong.gov.vn hoặc cổng dịch vụ công của địa phương. Khả năng nộp trực tuyến, yêu cầu tài khoản định danh và hình thức nhận kết quả tùy từng thủ tục; hãy đọc kỹ hướng dẫn trên trang tiếp nhận trước khi gửi.",
     "category": "Nộp hồ sơ",
     "status": "published"
   },
   {
     "id": "faq-2",
     "question": "Làm sao để theo dõi hồ sơ đã nộp?",
-    "answer": "Đăng nhập CivicGuide, mở mục Hồ sơ của tôi và chọn hồ sơ cần theo dõi. Mã hồ sơ cũng có thể được tra cứu trên cổng dịch vụ công nơi bạn đã nộp.",
+    "answer": "Lưu mã hồ sơ trên phiếu tiếp nhận hoặc tin nhắn/email xác nhận. Tra cứu trên đúng cổng dịch vụ công đã nộp hoặc liên hệ cơ quan ghi trên phiếu. Mục Hồ sơ của tôi trên CivicGuide chỉ theo dõi hồ sơ minh họa trong ứng dụng, không thay thế hệ thống tra cứu của cơ quan nhà nước.",
     "category": "Theo dõi hồ sơ",
     "status": "published"
   },
   {
     "id": "faq-3",
     "question": "Thông tin trên CivicGuide có thay thế tư vấn pháp lý không?",
-    "answer": "Không. CivicGuide giúp bạn tìm hiểu quy trình; hãy liên hệ cơ quan tiếp nhận để xác nhận yêu cầu cụ thể theo địa phương.",
+    "answer": "Không. CivicGuide cung cấp hướng dẫn tham khảo, không phải quyết định tiếp nhận hồ sơ hoặc tư vấn pháp lý. Thành phần giấy tờ, thẩm quyền, lệ phí và thời hạn có thể phụ thuộc trường hợp cụ thể và quy định mới; hãy xác nhận với cơ quan tiếp nhận trước khi nộp.",
     "category": "Thông tin chung",
+    "status": "published"
+  },
+  {
+    "id": "faq-4",
+    "question": "Nếu hồ sơ bị yêu cầu bổ sung thì tôi cần làm gì?",
+    "answer": "Đọc thông báo để xác định chính xác giấy tờ hoặc thông tin còn thiếu, cách nộp bổ sung và hạn xử lý. Nộp qua đúng kênh đã tiếp nhận, đính kèm mã hồ sơ và giữ lại xác nhận bổ sung. Nếu nội dung chưa rõ, liên hệ cơ quan ghi trên phiếu tiếp nhận; không gửi giấy tờ cá nhân qua tài khoản hoặc đường dẫn không chính thức.",
+    "category": "Bổ sung hồ sơ",
+    "status": "published"
+  },
+  {
+    "id": "faq-5",
+    "question": "Tôi có cần nộp bản giấy khi dữ liệu đã có trên hệ thống?",
+    "answer": "Tùy thủ tục và khả năng khai thác dữ liệu của cơ quan tiếp nhận. Một số thông tin có thể được tra cứu điện tử nên không cần nộp lại bản giấy, nhưng bạn vẫn có thể được yêu cầu xuất trình bản gốc để đối chiếu nếu dữ liệu thiếu hoặc chưa thống nhất. Làm theo hướng dẫn trong thủ tục đang được công bố.",
+    "category": "Giấy tờ",
+    "status": "published"
+  },
+  {
+    "id": "faq-6",
+    "question": "Lệ phí và thời hạn xử lý hồ sơ có giống nhau ở mọi địa phương không?",
+    "answer": "Không phải lúc nào cũng giống nhau. Một số khoản thu, cách tiếp nhận và thời hạn thực tế phụ thuộc loại thủ tục, trường hợp hồ sơ và quy định địa phương. Kiểm tra thông tin đang được công bố tại nơi nộp; thời gian yêu cầu bổ sung hoặc thực hiện nghĩa vụ tài chính có thể được tính riêng.",
+    "category": "Lệ phí và thời hạn",
+    "status": "published"
+  },
+  {
+    "id": "faq-7",
+    "question": "Đăng ký hộ kinh doanh xong có thể kinh doanh ngay không?",
+    "answer": "Giấy chứng nhận đăng ký hộ kinh doanh không thay thế giấy phép hoặc điều kiện chuyên ngành. Trước khi hoạt động, kiểm tra yêu cầu về ngành nghề có điều kiện, an toàn thực phẩm, phòng cháy chữa cháy, môi trường và nghĩa vụ thuế tùy lĩnh vực, địa điểm kinh doanh.",
+    "category": "Kinh doanh",
+    "status": "published"
+  },
+  {
+    "id": "faq-8",
+    "question": "Hồ sơ xin cấp Giấy chứng nhận quyền sử dụng đất lần đầu có một danh mục cố định không?",
+    "answer": "Không. Giấy tờ cần nộp phụ thuộc nguồn gốc và thời điểm sử dụng đất, giấy tờ hiện có, hiện trạng, quy hoạch và tình trạng tranh chấp. Nên mang theo toàn bộ tài liệu liên quan để cơ quan chuyên môn xác định thành phần hồ sơ và khoản nghĩa vụ tài chính có thể phát sinh trước khi nộp.",
+    "category": "Đất đai",
     "status": "published"
   }
 ]

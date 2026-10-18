@@ -4,10 +4,6 @@ export function escapeHtml(value = "") {
   })[character]);
 }
 
-export function pageHeading(eyebrow, title, description = "") {
-  return `<div class="page-heading"><div><span class="eyebrow">${escapeHtml(eyebrow)}</span><h1>${escapeHtml(title)}</h1>${description ? `<p>${escapeHtml(description)}</p>` : ""}</div></div>`;
-}
-
 export function emptyState(title, description = "") {
   return `<div class="empty-state"><strong>${escapeHtml(title)}</strong>${description ? `<span>${escapeHtml(description)}</span>` : ""}</div>`;
 }

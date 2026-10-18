@@ -6,7 +6,10 @@
     "items": [
       "Tờ khai đăng ký kết hôn theo mẫu",
       "CCCD/hộ chiếu còn hiệu lực của hai bên",
-      "Giấy xác nhận tình trạng hôn nhân (nếu cần)"
+      "Giấy xác nhận tình trạng hôn nhân (nếu cần)",
+      "Thông tin nơi cư trú của một trong hai bên để xác định cơ quan có thẩm quyền",
+      "Giấy tờ về việc ly hôn/ghi chú ly hôn hoặc giấy tờ khác nếu thuộc trường hợp cần chứng minh tình trạng hôn nhân",
+      "Giấy tờ riêng đối với trường hợp có yếu tố nước ngoài (liên hệ cơ quan hộ tịch để được cấp danh mục chính xác)"
     ]
   },
   {
@@ -16,7 +19,10 @@
     "items": [
       "Tờ khai đăng ký khai sinh",
       "Giấy chứng sinh",
-      "Giấy tờ tùy thân của người đi đăng ký"
+      "Giấy tờ tùy thân của người đi đăng ký",
+      "Thông tin hoặc giấy tờ về nơi cư trú của cha hoặc mẹ",
+      "Giấy tờ chứng minh quan hệ cha, mẹ, con nếu hồ sơ cần xác minh hoặc đăng ký nhận cha/mẹ/con cùng thời điểm",
+      "Giấy tờ thay thế giấy chứng sinh theo hướng dẫn của cơ quan hộ tịch nếu trẻ sinh ngoài cơ sở y tế"
     ]
   },
   {
@@ -24,8 +30,41 @@
     "procedureId": "residence-confirmation",
     "title": "Xác nhận thông tin cư trú",
     "items": [
-      "Tờ khai thay đổi thông tin cư trú (nếu nộp trực tiếp)",
-      "CCCD hoặc mã định danh cá nhân"
+      "Tờ khai thay đổi thông tin cư trú (nếu nộp trực tiếp, theo yêu cầu của cơ quan tiếp nhận)",
+      "CCCD hoặc mã định danh cá nhân",
+      "Thông tin định danh của người cần xác nhận: họ tên, ngày sinh và số định danh cá nhân",
+      "Yêu cầu xác nhận theo biểu mẫu hoặc hình thức điện tử được địa phương công bố",
+      "Thông tin/khoảng thời gian cư trú cần xác nhận và mục đích sử dụng (nếu biểu mẫu yêu cầu)",
+      "Thông tin liên hệ và lựa chọn nhận kết quả điện tử hoặc bản giấy",
+      "Giấy tờ chứng minh tư cách đại diện/ủy quyền nếu nộp thay người khác và được cơ quan tiếp nhận yêu cầu"
+    ]
+  },
+  {
+    "id": "business-household",
+    "procedureId": "business-household",
+    "title": "Đăng ký hộ kinh doanh",
+    "items": [
+      "Giấy đề nghị đăng ký hộ kinh doanh theo biểu mẫu hiện hành",
+      "Bản sao giấy tờ tùy thân của chủ hộ kinh doanh",
+      "Địa chỉ trụ sở và thông tin liên hệ của hộ kinh doanh",
+      "Thông tin tên hộ, ngành nghề kinh doanh và vốn đăng ký",
+      "Biên bản họp thành viên hộ gia đình nếu các thành viên cùng đăng ký",
+      "Văn bản ủy quyền cho một thành viên làm chủ hộ nếu các thành viên hộ gia đình cùng đăng ký",
+      "Bản sao giấy tờ tùy thân của thành viên hộ gia đình liên quan nếu thủ tục yêu cầu"
+    ]
+  },
+  {
+    "id": "land-certificate",
+    "procedureId": "land-certificate",
+    "title": "Cấp Giấy chứng nhận quyền sử dụng đất lần đầu",
+    "items": [
+      "Đơn đăng ký theo mẫu hiện hành",
+      "Giấy tờ tùy thân và thông tin của người đề nghị cấp giấy",
+      "Tài liệu chứng minh nguồn gốc/quá trình sử dụng đất (nếu đang có)",
+      "Giấy tờ chuyển nhượng, thừa kế, tặng cho, giao đất hoặc giấy tờ liên quan khác (nếu có)",
+      "Bản đồ, trích đo, giấy tờ kê khai hoặc chứng từ tài chính liên quan đến thửa đất (nếu có)",
+      "Giấy tờ về nhà ở/công trình gắn liền với đất nếu đồng thời đề nghị chứng nhận tài sản",
+      "Giấy tờ bổ sung theo yêu cầu sau khi cơ quan chuyên môn xác định nguồn gốc và hiện trạng thửa đất"
     ]
   }
 ]

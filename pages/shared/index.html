@@ -9,5 +9,151 @@
   <link rel="stylesheet" href="../../css/style.css">
   <script type="module" src="../../js/main.js"></script>
 </head>
-<body data-page="index"><div id="app"></div></body>
+<body data-page="index">
+  <div id="app">
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="/pages/shared/index.html" aria-label="CivicGuide - Trang chủ">
+          <span class="brand-mark">C</span>
+          <span class="brand-name">Civic<span>Guide</span></span>
+        </a>
+        <button class="mobile-menu" data-action="menu" aria-label="Mở menu" aria-expanded="false">☰</button>
+        <nav class="nav-links" aria-label="Điều hướng">
+          <a href="/pages/shared/index.html" aria-current="page">Trang chủ</a>
+          <a href="/pages/citizen/citizen-civic-search.html">Tra cứu thủ tục</a>
+          <a href="/pages/citizen/citizen-my-applications.html" data-user-link hidden>Hồ sơ của tôi</a>
+          <a href="/pages/citizen/citizen-my-checklists.html" data-user-link hidden>Giấy tờ cần chuẩn bị</a>
+          <a href="/pages/officer/officer-procedure-management.html" data-role-link="officer admin" hidden>Quản lý nội dung</a>
+          <a href="/pages/editor/editor-approval-queue.html" data-role-link="editor admin" hidden>Phê duyệt</a>
+          <a href="/pages/admin/admin-govtech-dashboard.html" data-role-link="admin" hidden>Quản trị</a>
+        </nav>
+        <div class="header-actions">
+          <a class="button button-secondary button-small" href="/pages/shared/profile.html" data-profile-link hidden></a>
+          <button class="button button-small" data-action="logout" data-user-link hidden>Đăng xuất</button>
+          <a href="/pages/shared/login.html" data-guest-link>Đăng nhập</a>
+          <a class="button button-small" href="/pages/shared/register.html" data-guest-link>Tạo tài khoản</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content" tabindex="-1">
+      <section class="hero">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <span class="eyebrow">CivicGuide · Dịch vụ công dễ hiểu</span>
+            <h1>Thủ tục công,<br><span>đơn giản hơn.</span></h1>
+            <p>Tìm hướng dẫn rõ ràng, chuẩn bị đúng giấy tờ và chủ động theo dõi hành trình hồ sơ của bạn.</p>
+            <form class="search-box" id="search-form">
+              <label class="sr-only" for="home-search">Tìm thủ tục</label>
+              <input id="home-search" name="q" placeholder="Ví dụ: đăng ký kết hôn, xác nhận cư trú…">
+              <button class="button" type="submit">⌕ &nbsp; Tìm thủ tục</button>
+            </form>
+            <p class="home-search-note">Phổ biến: Đăng ký kết hôn · Khai sinh · Cư trú</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="page-shell">
+        <section class="section home-procedures">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Bắt đầu từ đây</span>
+              <h2>Thủ tục được quan tâm</h2>
+              <p>Thông tin nền tảng giúp bạn biết cần chuẩn bị gì.</p>
+            </div>
+            <a class="text-link" href="/pages/citizen/citizen-civic-search.html">Xem tất cả →</a>
+          </div>
+          <div class="service-grid" id="home-procedures" aria-live="polite"></div>
+        </section>
+
+        <section class="assistant-banner">
+          <div>
+            <h2>Chưa biết bắt đầu từ đâu?</h2>
+            <p>Hỏi CivicGuide để tìm hướng dẫn phù hợp với nhu cầu của bạn.</p>
+          </div>
+          <a class="button" href="/pages/citizen/citizen-civic-search.html">Khám phá thủ tục →</a>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Trợ giúp nhanh</span>
+              <h2>Câu hỏi thường gặp</h2>
+            </div>
+          </div>
+          <div class="panel" id="home-faq" aria-live="polite"></div>
+        </section>
+
+        <section class="section">
+          <div class="section-heading">
+            <div>
+              <span class="eyebrow">Cùng CivicGuide</span>
+              <h2>Chuẩn bị hồ sơ tự tin hơn</h2>
+              <p>Lưu tiến độ giấy tờ và giữ thông tin quan trọng trong tầm tay.</p>
+            </div>
+            <a class="button button-secondary" href="/pages/citizen/citizen-my-checklists.html">Mở danh sách giấy tờ</a>
+          </div>
+        </section>
+
+        <p class="home-data-status" id="home-data-status" role="status" hidden></p>
+      </div>
+
+      <dialog id="procedure-dialog" class="panel procedure-dialog">
+        <div class="procedure-dialog-close">
+          <button class="icon-button" data-action="close-dialog" aria-label="Đóng">×</button>
+        </div>
+        <article id="procedure-detail" class="procedure-detail">
+          <header class="procedure-detail-header">
+            <span class="eyebrow" data-procedure-category></span>
+            <h2 data-procedure-title></h2>
+            <p data-procedure-description></p>
+            <p class="procedure-updated">Cập nhật <span data-procedure-updated></span></p>
+          </header>
+          <div class="procedure-detail-layout">
+            <section class="panel procedure-steps">
+              <div class="procedure-section-heading"><span class="eyebrow">Hướng dẫn thực hiện</span><h3>Các bước thực hiện</h3><p><span data-step-count></span> bước · Làm lần lượt theo hướng dẫn dưới đây</p></div>
+              <ol class="procedure-step-list" id="procedure-steps"></ol>
+              <button class="button" data-action="apply">Tạo hồ sơ theo dõi</button>
+            </section>
+            <aside class="panel procedure-info">
+              <h3>Thông tin tham khảo</h3>
+              <dl><div><dt>Cơ quan tiếp nhận</dt><dd data-procedure-agency></dd></div><div><dt>Thời hạn giải quyết</dt><dd data-procedure-duration></dd></div><div><dt>Lệ phí</dt><dd data-procedure-fee></dd></div></dl>
+              <p class="notice">Thành phần hồ sơ và thời gian xử lý có thể phụ thuộc trường hợp cụ thể, quy định mới và địa phương. Vui lòng xác nhận với cơ quan tiếp nhận trước khi nộp.</p>
+            </aside>
+          </div>
+        </article>
+        <section id="procedure-application" hidden>
+          <h2>Theo dõi hồ sơ</h2><p class="muted">Tạo hồ sơ minh họa để theo dõi trong tài khoản của bạn.</p>
+          <form id="application-form" class="form-grid">
+            <input type="hidden" name="procedureId">
+            <div class="field field-full"><label>Thủ tục</label><strong data-application-title></strong></div>
+            <div class="field field-full"><label for="applicantName">Họ và tên</label><input id="applicantName" name="applicantName" required maxlength="100" autocomplete="name"></div>
+            <div class="field field-full"><label for="phone">Số điện thoại</label><input id="phone" name="phone" required maxlength="30" autocomplete="tel"></div>
+            <div class="field field-full"><label for="note">Ghi chú (không bắt buộc)</label><textarea id="note" name="note" maxlength="1000"></textarea></div>
+            <div class="field field-full"><div class="notice">Đây là hồ sơ minh họa để theo dõi trong CivicGuide; vui lòng nộp hồ sơ chính thức qua cơ quan có thẩm quyền.</div></div>
+            <div class="field field-full"><button class="button" type="submit">Tạo hồ sơ theo dõi</button></div>
+          </form>
+        </section>
+      </dialog>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div>
+          <a class="brand" href="/pages/shared/index.html">
+            <span class="brand-mark">C</span>
+            <span class="brand-name">Civic<span>Guide</span></span>
+          </a>
+          <p class="footer-copy">Thông tin hướng dẫn được tổng hợp để giúp bạn chuẩn bị tốt hơn. Luôn xác nhận yêu cầu mới nhất với cơ quan có thẩm quyền.</p>
+        </div>
+        <nav class="footer-links" aria-label="Liên kết cuối trang">
+          <a href="/pages/citizen/citizen-civic-search.html">Tra cứu thủ tục</a>
+          <a href="/pages/citizen/citizen-my-checklists.html">Danh sách giấy tờ</a>
+          <a href="/pages/shared/notifications.html">Thông báo</a>
+        </nav>
+      </div>
+    </footer>
+    <div class="toast-region" aria-live="polite"></div>
+  </div>
+</body>
 </html>

@@ -4,9 +4,8 @@ import { preferences } from "./storage.js";
 import { assistantAnswer } from "./modules/ai-search.js";
 import { renderFaqs } from "./modules/ai-faq.js";
 import { renderChecklists } from "./modules/ai-checklist.js";
-import { applicationForm, submitApplication } from "./modules/application-wizard.js";
-import { procedureDetails } from "./modules/procedure-drawer.js";
-import { emptyState, escapeHtml, pageHeading, statusBadge } from "./modules/dom-utils.js";
+import { submitApplication } from "./modules/application-wizard.js";
+import { emptyState, escapeHtml, statusBadge } from "./modules/dom-utils.js";
 
 const root = document.querySelector("#app");
 const page = document.body.dataset.page;
@@ -36,27 +35,22 @@ let currentProcedure = null;
 let currentProcedures = [];
 let currentFaqs = [];
 
-function link(href, label, current = false) {
-  return `<a href="${href}"${current ? ' aria-current="page"' : ""}>${label}</a>`;
-}
-
-function navigation() {
-  const links = [
-    link(path.home, "Trang chủ", page === "index"),
-    link(path.search, "Tra cứu thủ tục", page.includes("search")),
-    ...(currentUser ? [
-      link(path.applications, "Hồ sơ của tôi", page.includes("applications")),
-      link(path.checklists, "Giấy tờ cần chuẩn bị", page.includes("checklists")),
-      ...(currentUser.role === "officer" || currentUser.role === "admin" ? [link("/pages/officer/officer-procedure-management.html", "Quản lý nội dung")] : []),
-      ...(currentUser.role === "editor" || currentUser.role === "admin" ? [link("/pages/editor/editor-approval-queue.html", "Phê duyệt")] : []),
-      ...(currentUser.role === "admin" ? [link("/pages/admin/admin-govtech-dashboard.html", "Quản trị")] : [])
-    ] : [])
-  ];
-  return `<header class="site-header"><div class="header-inner"><a class="brand" href="${path.home}" aria-label="CivicGuide - Trang chủ"><span class="brand-mark">C</span><span class="brand-name">Civic<span>Guide</span></span></a><button class="mobile-menu" data-action="menu" aria-label="Mở menu" aria-expanded="false">☰</button><nav class="nav-links" aria-label="Điều hướng">${links.join("")}</nav><div class="header-actions">${currentUser ? `<a class="button button-secondary button-small" href="${path.profile}">${escapeHtml(currentUser.displayName.split(" ")[0])}</a><button class="button button-small" data-action="logout">Đăng xuất</button>` : `${link(path.login, "Đăng nhập")}<a class="button button-small" href="${path.register}">Tạo tài khoản</a>`}</div></div></header>`;
-}
-
-function footer() {
-  return `<footer class="site-footer"><div class="footer-inner"><div><a class="brand" href="${path.home}"><span class="brand-mark">C</span><span class="brand-name">Civic<span>Guide</span></span></a><p class="footer-copy">Thông tin hướng dẫn được tổng hợp để giúp bạn chuẩn bị tốt hơn. Luôn xác nhận yêu cầu mới nhất với cơ quan có thẩm quyền.</p></div><nav class="footer-links" aria-label="Liên kết cuối trang">${link(path.search, "Tra cứu thủ tục")}${link(path.checklists, "Danh sách giấy tờ")}${link("/pages/shared/notifications.html", "Thông báo")}</nav></div></footer>`;
+function updateNavigation() {
+  const authenticated = Boolean(currentUser);
+  root.querySelectorAll("[data-user-link]").forEach((element) => { element.hidden = !authenticated; });
+  root.querySelectorAll("[data-guest-link]").forEach((element) => { element.hidden = authenticated; });
+  root.querySelectorAll("[data-role-link]").forEach((element) => {
+    element.hidden = !currentUser || !element.dataset.roleLink.split(" ").includes(currentUser.role);
+  });
+  const profileLink = root.querySelector("[data-profile-link]");
+  if (profileLink) {
+    profileLink.hidden = !authenticated;
+    if (authenticated) profileLink.textContent = currentUser.displayName.split(" ")[0];
+  }
+  root.querySelectorAll(".nav-links a").forEach((anchor) => {
+    if (anchor.getAttribute("href") === location.pathname) anchor.setAttribute("aria-current", "page");
+    else anchor.removeAttribute("aria-current");
+  });
 }
 
 function notify(message, isError = false) {
@@ -71,7 +65,7 @@ function notify(message, isError = false) {
 
 function procedureCards(procedures) {
   if (!procedures.length) return emptyState("Chưa tìm thấy thủ tục phù hợp", "Hãy thử từ khóa khác hoặc xóa bộ lọc.");
-  return procedures.map((procedure) => `<article class="service-card"><span class="service-icon">${iconFor(procedure.category)}</span><span class="eyebrow">${escapeHtml(procedure.category)}</span><h3>${escapeHtml(procedure.title)}</h3><p>${escapeHtml(procedure.description)}</p><div class="service-meta"><span>${escapeHtml(procedure.duration)}</span><button class="text-link" data-action="procedure" data-id="${escapeHtml(procedure.id)}">Xem hướng dẫn →</button></div></article>`).join("");
+  return procedures.map((procedure) => `<article class="service-card"><div class="service-card-heading"><span class="service-icon" aria-hidden="true">${iconFor(procedure.category)}</span><span class="eyebrow">${escapeHtml(procedure.category)}</span></div><h3>${escapeHtml(procedure.title)}</h3><p class="service-card-description">${escapeHtml(procedure.description)}</p><div class="service-card-summary"><span>${procedure.steps?.length || 0} bước hướng dẫn</span><span>${escapeHtml(procedure.duration)}</span></div><div class="service-meta"><button class="text-link" data-action="procedure" data-id="${escapeHtml(procedure.id)}" aria-label="Xem chi tiết ${escapeHtml(procedure.title)}">Xem chi tiết <span aria-hidden="true">→</span></button></div></article>`).join("");
 }
 
 function iconFor(category) {
@@ -82,8 +76,10 @@ async function renderHome(main) {
   const [procedureData, faqData] = await Promise.all([api.get("/api/procedures"), api.get("/api/faqs")]);
   currentProcedures = procedureData.procedures;
   currentFaqs = faqData.faqs;
-  main.innerHTML = `<section class="hero"><div class="hero-inner"><div class="hero-copy"><span class="eyebrow">CivicGuide · Dịch vụ công dễ hiểu</span><h1>Thủ tục công,<br><span>đơn giản hơn.</span></h1><p>Tìm hướng dẫn rõ ràng, chuẩn bị đúng giấy tờ và chủ động theo dõi hành trình hồ sơ của bạn.</p><form class="search-box" id="search-form"><label class="sr-only" for="home-search">Tìm thủ tục</label><input id="home-search" name="q" placeholder="Ví dụ: đăng ký kết hôn, xác nhận cư trú…" value="${escapeHtml(new URLSearchParams(location.search).get("q") || "")}"><button class="button" type="submit">⌕ &nbsp; Tìm thủ tục</button></form><p class="muted" style="margin:12px 0 0;font-size:.82rem">Phổ biến: Đăng ký kết hôn · Khai sinh · Cư trú</p></div></div></section><div class="page-shell"><section class="section" style="padding-top:45px"><div class="section-heading"><div><span class="eyebrow">Bắt đầu từ đây</span><h2>Thủ tục được quan tâm</h2><p>Thông tin nền tảng giúp bạn biết cần chuẩn bị gì.</p></div><a class="text-link" href="${path.search}">Xem tất cả →</a></div><div class="service-grid">${procedureCards(currentProcedures.slice(0, 6))}</div></section><section class="assistant-banner"><div><h2>Chưa biết bắt đầu từ đâu?</h2><p>Hỏi CivicGuide để tìm hướng dẫn phù hợp với nhu cầu của bạn.</p></div><a class="button" href="${path.search}">Khám phá thủ tục →</a></section><section class="section"><div class="section-heading"><div><span class="eyebrow">Trợ giúp nhanh</span><h2>Câu hỏi thường gặp</h2></div></div><div class="panel" id="home-faq"></div></section><section class="section"><div class="section-heading"><div><span class="eyebrow">Cùng CivicGuide</span><h2>Chuẩn bị hồ sơ tự tin hơn</h2><p>Lưu tiến độ giấy tờ và giữ thông tin quan trọng trong tầm tay.</p></div><a class="button button-secondary" href="${path.checklists}">Mở danh sách giấy tờ</a></div></section></div><dialog id="procedure-dialog" class="panel" style="width:min(820px,calc(100% - 28px));max-height:90vh;border:0;border-radius:18px;box-shadow:var(--shadow)"><div class="inline-actions" style="justify-content:flex-end"><button class="icon-button" data-action="close-dialog" aria-label="Đóng">×</button></div><div id="procedure-dialog-content"></div></dialog>`;
+  main.querySelector("#home-search").value = new URLSearchParams(location.search).get("q") || "";
+  main.querySelector("#home-procedures").innerHTML = procedureCards(currentProcedures.slice(0, 6));
   await renderFaqs(main.querySelector("#home-faq"));
+  main.querySelector("#home-data-status").hidden = true;
 }
 
 async function renderSearch(main) {
@@ -98,18 +94,16 @@ async function renderSearch(main) {
   const query = params.get("q") || "";
   const selectedCategory = params.get("category") || "";
   const visibleProcedures = selectedCategory ? currentProcedures.filter((item) => item.category === selectedCategory) : currentProcedures;
-  main.innerHTML = `<div class="page-shell">${pageHeading("Tra cứu", "Tìm thủ tục phù hợp", "Thông tin dễ hiểu để bạn biết cơ quan, thời gian và giấy tờ cần chuẩn bị.")}<form class="toolbar" id="search-form"><label class="sr-only" for="search-query">Tìm thủ tục</label><input id="search-query" name="q" value="${escapeHtml(query)}" placeholder="Nhập tên thủ tục hoặc từ khóa"><select name="category" aria-label="Lọc theo lĩnh vực"><option value="">Tất cả lĩnh vực</option>${categoryData.categories.map((category) => `<option value="${escapeHtml(category)}" ${category === selectedCategory ? "selected" : ""}>${escapeHtml(category)}</option>`).join("")}</select><button class="button" type="submit">Tìm kiếm</button></form><div class="chip-list" style="margin-bottom:20px"><button class="chip ${selectedCategory ? "" : "active"}" data-action="filter" data-category="">Tất cả</button>${categoryData.categories.map((category) => `<button class="chip ${category === selectedCategory ? "active" : ""}" data-action="filter" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`).join("")}</div><div class="service-grid" id="search-results">${procedureCards(visibleProcedures)}</div><section class="panel" style="margin-top:32px"><span class="eyebrow">CivicGuide hỗ trợ</span><h2 style="margin:7px 0">Hỏi nhanh về thủ tục</h2><p class="muted">Trợ lý tìm câu trả lời trong dữ liệu hướng dẫn hiện có; không thay thế tư vấn của cơ quan nhà nước.</p><form class="assistant-form" id="assistant-form"><label class="sr-only" for="assistant-question">Câu hỏi</label><input id="assistant-question" name="question" placeholder="Ví dụ: Đăng ký khai sinh cần giấy tờ gì?"><button class="button" type="submit">Hỏi</button></form><div id="assistant-answer" aria-live="polite"></div></section><section class="panel" style="margin-top:18px"><h2>Gửi góp ý</h2><p class="muted">Giúp CivicGuide cải thiện nội dung hướng dẫn.</p><form id="feedback-form" class="form-grid"><div class="field field-full"><label for="feedback-message">Nội dung góp ý</label><textarea id="feedback-message" name="message" required maxlength="1500"></textarea></div>${currentUser ? "" : `<div class="field"><label for="feedback-name">Họ và tên</label><input id="feedback-name" name="name" required maxlength="100"></div><div class="field"><label for="feedback-email">Email</label><input id="feedback-email" name="email" type="email" required maxlength="254"></div>`}<div class="field-full"><button class="button" type="submit">Gửi góp ý</button></div></form></section></div><dialog id="procedure-dialog" class="panel" style="width:min(820px,calc(100% - 28px));max-height:90vh;border:0;border-radius:18px;box-shadow:var(--shadow)"><div class="inline-actions" style="justify-content:flex-end"><button class="icon-button" data-action="close-dialog" aria-label="Đóng">×</button></div><div id="procedure-dialog-content"></div></dialog>`;
-}
-
-function authPage(type) {
-  const registering = type === "register";
-  const forgotten = type === "forgot-password";
-  const title = registering ? "Tạo tài khoản CivicGuide" : forgotten ? "Khôi phục mật khẩu" : "Chào mừng bạn trở lại";
-  const intro = registering ? "Lưu danh sách giấy tờ và theo dõi hồ sơ của bạn." : forgotten ? "Chức năng gửi email đặt lại mật khẩu chưa được cấu hình trong bản demo." : "Đăng nhập để quản lý hồ sơ và tiến độ chuẩn bị.";
-  const form = forgotten
-    ? `<form id="forgot-form"><div class="field"><label for="forgot-email">Email tài khoản</label><input id="forgot-email" name="email" type="email" required autocomplete="email"></div><button class="button" type="submit">Gửi yêu cầu hỗ trợ</button></form>`
-    : `<form id="${registering ? "register-form" : "login-form"}">${registering ? `<div class="field"><label for="displayName">Họ và tên</label><input id="displayName" name="displayName" required maxlength="100" autocomplete="name"></div>` : ""}<div class="field"><label for="email">Email</label><input id="email" name="email" type="email" required autocomplete="email"></div><div class="field"><label for="password">Mật khẩu</label><input id="password" name="password" type="password" required minlength="${registering ? "8" : "1"}" autocomplete="${registering ? "new-password" : "current-password"}"></div><button class="button" type="submit">${registering ? "Tạo tài khoản" : "Đăng nhập"}</button></form>`;
-  return `<div class="auth-layout"><aside class="auth-aside"><a class="brand" href="${path.home}"><span class="brand-mark">C</span><span class="brand-name">Civic<span>Guide</span></span></a><span class="eyebrow" style="margin-top:45px">Dịch vụ công, gần gũi hơn</span><h1>Chuẩn bị hôm nay, an tâm ngày mai.</h1><p class="muted">Hướng dẫn rõ ràng giúp bạn hiểu quy trình và tự tin hoàn thiện hồ sơ.</p></aside><section class="auth-main"><div class="auth-card"><span class="eyebrow">Tài khoản CivicGuide</span><h2>${title}</h2><p class="muted">${intro}</p>${form}<p class="auth-bottom">${forgotten ? `${link(path.login, "Quay lại đăng nhập")}` : registering ? `Đã có tài khoản? ${link(path.login, "Đăng nhập")}` : `Chưa có tài khoản? ${link(path.register, "Tạo tài khoản")}`}<br>${!registering && !forgotten ? `<a href="/pages/shared/forgot-password.html">Quên mật khẩu?</a>` : ""}</p></div></section></div>`;
+  main.querySelector("#search-query").value = query;
+  const categorySelect = main.querySelector("[name='category']");
+  categorySelect.insertAdjacentHTML("beforeend", categoryData.categories.map((category) => `<option value="${escapeHtml(category)}" ${category === selectedCategory ? "selected" : ""}>${escapeHtml(category)}</option>`).join(""));
+  const chips = main.querySelector(".search-chips");
+  chips.innerHTML = [`<button class="chip ${selectedCategory ? "" : "active"}" data-action="filter" data-category="">Tất cả</button>`, ...categoryData.categories.map((category) => `<button class="chip ${category === selectedCategory ? "active" : ""}" data-action="filter" data-category="${escapeHtml(category)}">${escapeHtml(category)}</button>`)].join("");
+  main.querySelector("#search-results").innerHTML = procedureCards(visibleProcedures);
+  main.querySelectorAll("[data-guest-feedback]").forEach((field) => {
+    field.hidden = Boolean(currentUser);
+    field.querySelector("input").disabled = Boolean(currentUser);
+  });
 }
 
 function applicationTable(applications) {
@@ -118,17 +112,22 @@ function applicationTable(applications) {
 }
 
 async function renderApplications(main) {
-  if (!currentUser) return renderAccessDenied(main, "Đăng nhập để theo dõi hồ sơ của bạn.");
   const { applications } = await api.get("/api/applications");
   const { procedures } = await api.get("/api/procedures");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Không gian của bạn", "Hồ sơ của tôi", "Theo dõi các hồ sơ bạn đã tạo trên CivicGuide.")}<section class="panel"><div class="section-heading"><div><h2>Hồ sơ đang theo dõi</h2><p>Hồ sơ minh họa trong CivicGuide không thay thế hồ sơ chính thức.</p></div><a class="button" href="${path.search}">Tìm thủ tục</a></div>${applicationTable(applications)}</section>${currentUser.role === "citizen" ? `<section class="panel" style="margin-top:20px"><h2>Tạo hồ sơ theo dõi</h2><p class="muted">Gửi thông tin cơ bản để lưu hồ sơ và theo dõi tại đây.</p><form id="application-form" class="form-grid"><div class="field"><label for="application-procedure">Thủ tục</label><select name="procedureId" id="application-procedure" required>${procedures.map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>`).join("")}</select></div><div class="field"><label for="application-name">Họ và tên</label><input id="application-name" name="applicantName" required maxlength="100" value="${escapeHtml(currentUser.displayName)}"></div><div class="field"><label for="application-phone">Số điện thoại</label><input id="application-phone" name="phone" required maxlength="30"></div><div class="field"><label for="application-note">Ghi chú</label><input id="application-note" name="note" maxlength="1000"></div><div class="field-full"><button class="button" type="submit">Lưu hồ sơ theo dõi</button></div></form></section>` : ""}</div>`;
+  main.querySelector("#applications-table").innerHTML = applicationTable(applications);
+  const createSection = main.querySelector(".application-create");
+  createSection.hidden = currentUser.role !== "citizen";
+  const procedureSelect = main.querySelector("#application-procedure");
+  procedureSelect.innerHTML = procedures.map((item) => `<option value="${escapeHtml(item.id)}">${escapeHtml(item.title)}</option>`).join("");
+  main.querySelector("#application-name").value = currentUser.displayName;
 }
 
 async function renderProcedures(main, management = false) {
   const { procedures } = await api.get("/api/procedures");
   currentProcedures = procedures;
   if (!management) return renderSearch(main);
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng cán bộ", "Quản lý thủ tục", "Bổ sung hướng dẫn để biên tập viên kiểm tra trước khi công khai.")}<div class="content-layout"><section class="panel"><h2>Thêm hướng dẫn thủ tục</h2><form class="form-grid" id="procedure-form"><div class="field field-full"><label for="procedure-title">Tên thủ tục</label><input id="procedure-title" name="title" required maxlength="300"></div><div class="field"><label for="procedure-category">Lĩnh vực</label><input id="procedure-category" name="category" list="category-options" required maxlength="80"><datalist id="category-options">${[...new Set(procedures.map((item) => item.category))].map((category) => `<option value="${escapeHtml(category)}">`).join("")}</datalist></div><div class="field"><label for="procedure-agency">Cơ quan tiếp nhận</label><input id="procedure-agency" name="agency" required maxlength="150"></div><div class="field"><label for="procedure-duration">Thời hạn</label><input id="procedure-duration" name="duration" value="Theo quy định"></div><div class="field"><label for="procedure-fee">Lệ phí</label><input id="procedure-fee" name="fee" value="Theo quy định"></div><div class="field field-full"><label for="procedure-description">Mô tả</label><textarea id="procedure-description" name="description" required maxlength="1200"></textarea></div><div class="field field-full"><label for="procedure-steps">Các bước (mỗi bước một dòng)</label><textarea id="procedure-steps" name="steps" placeholder="Chuẩn bị hồ sơ&#10;Nộp tại cơ quan tiếp nhận"></textarea></div><div class="field-full"><button class="button" type="submit">Gửi nội dung</button></div></form></section><section class="panel"><h2>Hướng dẫn hiện có</h2>${procedureTable(procedures)}</section></div></div>`;
+  main.querySelector("#category-options").innerHTML = [...new Set(procedures.map((item) => item.category))].map((category) => `<option value="${escapeHtml(category)}">`).join("");
+  main.querySelector("#procedure-table").innerHTML = procedureTable(procedures);
 }
 
 function procedureTable(procedures, options = {}) {
@@ -139,80 +138,84 @@ function procedureTable(procedures, options = {}) {
 async function renderFaqManagement(main) {
   const { faqs } = await api.get("/api/faqs");
   currentFaqs = faqs;
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng cán bộ", "Quản lý câu hỏi thường gặp", "Cập nhật câu trả lời để người dân nhanh chóng tìm thấy thông tin.")}<div class="content-layout"><section class="panel"><h2>Thêm câu hỏi và câu trả lời</h2><form id="faq-form" class="form-grid"><div class="field field-full"><label for="faq-question">Câu hỏi</label><input id="faq-question" name="question" required maxlength="300"></div><div class="field"><label for="faq-category">Chủ đề</label><input id="faq-category" name="category" value="Thông tin chung" maxlength="80"></div><div class="field field-full"><label for="faq-answer">Câu trả lời</label><textarea id="faq-answer" name="answer" required maxlength="1200"></textarea></div><div class="field-full"><button class="button" type="submit">Đăng câu trả lời</button></div></form></section><section class="panel"><h2>Câu hỏi hiện có</h2>${faqs.map((faq) => `<article class="list-item"><div><h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p><span class="badge">${escapeHtml(faq.category)}</span></div><button class="button button-danger button-small" data-action="delete-faq" data-id="${escapeHtml(faq.id)}">Xóa</button></article>`).join("") || emptyState("Chưa có câu hỏi")}</section></div></div>`;
+  main.querySelector("#faq-list").innerHTML = faqs.map((faq) => `<article class="list-item"><div><h3>${escapeHtml(faq.question)}</h3><p>${escapeHtml(faq.answer)}</p><span class="badge">${escapeHtml(faq.category)}</span></div><button class="button button-danger button-small" data-action="delete-faq" data-id="${escapeHtml(faq.id)}">Xóa</button></article>`).join("") || emptyState("Chưa có câu hỏi");
 }
 
 async function renderFeedback(main) {
   const { feedback } = await api.get("/api/feedback");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng cán bộ", "Góp ý từ công dân", "Tiếp nhận và cập nhật trạng thái phản hồi về nội dung dịch vụ công.")}<section class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Ngày</th><th>Người gửi</th><th>Góp ý</th><th>Trạng thái</th><th>Cập nhật</th></tr></thead><tbody>${feedback.map((item) => `<tr><td>${escapeHtml(item.createdAt)}</td><td>${escapeHtml(item.name)}<br><span class="muted">${escapeHtml(item.email)}</span></td><td style="white-space:normal;min-width:240px">${escapeHtml(item.message)}</td><td>${statusBadge(item.status)}</td><td><select data-feedback-status="${escapeHtml(item.id)}" aria-label="Cập nhật trạng thái"><option value="new" ${item.status === "new" ? "selected" : ""}>Mới</option><option value="reviewing" ${item.status === "reviewing" ? "selected" : ""}>Đang xử lý</option><option value="resolved" ${item.status === "resolved" ? "selected" : ""}>Đã xử lý</option></select></td></tr>`).join("")}</tbody></table></div></section></div>`;
+  main.querySelector("#feedback-rows").innerHTML = feedback.map((item) => `<tr><td>${escapeHtml(item.createdAt)}</td><td>${escapeHtml(item.name)}<br><span class="muted">${escapeHtml(item.email)}</span></td><td>${escapeHtml(item.message)}</td><td>${statusBadge(item.status)}</td><td><select data-feedback-status="${escapeHtml(item.id)}" aria-label="Cập nhật trạng thái"><option value="new" ${item.status === "new" ? "selected" : ""}>Mới</option><option value="reviewing" ${item.status === "reviewing" ? "selected" : ""}>Đang xử lý</option><option value="resolved" ${item.status === "resolved" ? "selected" : ""}>Đã xử lý</option></select></td></tr>`).join("") || `<tr><td colspan="5">${emptyState("Chưa có góp ý")}</td></tr>`;
 }
 
 async function renderDashboard(main) {
   const { stats } = await api.get("/api/dashboard");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng quản trị", "Tổng quan GovTech", "Theo dõi dữ liệu và hoạt động của nền tảng CivicGuide.")}<div class="stats-grid">${stats.map((stat) => `<article class="stat-card"><span>${escapeHtml(stat.label)}</span><strong>${escapeHtml(stat.value)}</strong></article>`).join("")}</div><div class="service-grid"><a class="panel" href="/pages/admin/admin-category-management.html"><span class="eyebrow">Nội dung</span><h2>Danh mục dịch vụ</h2><p class="muted">Quản lý các lĩnh vực và hướng dẫn được công khai.</p></a><a class="panel" href="/pages/admin/admin-user-management.html"><span class="eyebrow">Tài khoản</span><h2>Người dùng</h2><p class="muted">Quản lý vai trò và quyền truy cập.</p></a><a class="panel" href="/pages/editor/editor-approval-queue.html"><span class="eyebrow">Biên tập</span><h2>Hàng đợi phê duyệt</h2><p class="muted">Kiểm tra các hướng dẫn cần được duyệt.</p></a></div></div>`;
+  main.querySelector("#dashboard-stats").innerHTML = stats.map((stat) => `<article class="stat-card"><span>${escapeHtml(stat.label)}</span><strong>${escapeHtml(stat.value)}</strong></article>`).join("");
 }
 
 async function renderCategories(main) {
   const [categoryData, procedureData] = await Promise.all([api.get("/api/categories"), api.get("/api/procedures")]);
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng quản trị", "Danh mục dịch vụ", "Giữ danh mục thủ tục gọn gàng và dễ tìm kiếm.")}<div class="content-layout"><section class="panel"><h2>Thêm lĩnh vực</h2><form id="category-form" class="form-grid"><div class="field field-full"><label for="category-name">Tên lĩnh vực</label><input id="category-name" name="name" required maxlength="80"></div><div class="field-full"><button class="button" type="submit">Thêm lĩnh vực</button></div></form><div class="chip-list" style="margin-top:20px">${categoryData.categories.map((category) => `<span class="chip">${escapeHtml(category)}</span>`).join("")}</div></section><section class="panel"><h2>Thủ tục trong danh mục</h2>${procedureTable(procedureData.procedures)}</section></div></div>`;
+  main.querySelector(".category-list").innerHTML = categoryData.categories.map((category) => `<span class="chip">${escapeHtml(category)}</span>`).join("");
+  main.querySelector("#procedure-table").innerHTML = procedureTable(procedureData.procedures);
 }
 
 async function renderUsers(main) {
   const { users } = await api.get("/api/users");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Cổng quản trị", "Quản lý người dùng", "Cấp vai trò phù hợp và kiểm soát trạng thái tài khoản.")}<section class="panel"><div class="table-wrap"><table class="data-table"><thead><tr><th>Người dùng</th><th>Email</th><th>Vai trò</th><th>Trạng thái</th></tr></thead><tbody>${users.map((user) => `<tr><td>${escapeHtml(user.displayName)}</td><td>${escapeHtml(user.email)}</td><td><select data-user-role="${escapeHtml(user.id)}" aria-label="Vai trò của ${escapeHtml(user.displayName)}">${Object.entries(roleNames).map(([role, name]) => `<option value="${role}" ${user.role === role ? "selected" : ""}>${name}</option>`).join("")}</select></td><td><button class="button button-small ${user.active ? "button-secondary" : ""}" data-action="toggle-user" data-id="${escapeHtml(user.id)}" data-active="${user.active}">${user.active ? "Đang hoạt động" : "Đã khóa"}</button></td></tr>`).join("")}</tbody></table></div></section></div>`;
+  main.querySelector("#user-rows").innerHTML = users.map((user) => `<tr><td>${escapeHtml(user.displayName)}</td><td>${escapeHtml(user.email)}</td><td><select data-user-role="${escapeHtml(user.id)}" aria-label="Vai trò của ${escapeHtml(user.displayName)}">${Object.entries(roleNames).map(([role, name]) => `<option value="${role}" ${user.role === role ? "selected" : ""}>${name}</option>`).join("")}</select></td><td><button class="button button-small ${user.active ? "button-secondary" : ""}" data-action="toggle-user" data-id="${escapeHtml(user.id)}" data-active="${user.active}">${user.active ? "Đang hoạt động" : "Đã khóa"}</button></td></tr>`).join("") || `<tr><td colspan="4">${emptyState("Chưa có người dùng")}</td></tr>`;
 }
 
 async function renderApprovalQueue(main) {
   const { procedures } = await api.get("/api/procedures");
   const pending = procedures.filter((procedure) => procedure.status === "pending");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Không gian biên tập", "Hàng đợi phê duyệt", "Kiểm tra nội dung gửi đến trước khi đưa ra công khai.")}<section class="panel"><h2>Nội dung chờ duyệt</h2>${procedureTable(pending, { approvals: true })}</section></div>`;
+  main.querySelector("#procedure-table").innerHTML = procedureTable(pending, { approvals: true });
 }
 
 async function renderFreshness(main) {
   const { procedures } = await api.get("/api/procedures");
   const sorted = [...procedures].sort((a, b) => a.updatedAt.localeCompare(b.updatedAt));
-  main.innerHTML = `<div class="page-shell">${pageHeading("Không gian biên tập", "Theo dõi độ mới của thông tin", "Ưu tiên rà soát hướng dẫn đã lâu chưa được cập nhật.")}<section class="panel">${procedureTable(sorted)}</section></div>`;
+  main.querySelector("#procedure-table").innerHTML = procedureTable(sorted);
 }
 
 async function renderSources(main) {
   const { documents } = await api.get("/api/documents");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Không gian biên tập", "Quản lý nguồn tham khảo", "Theo dõi những nguồn chính thức được dùng để rà soát nội dung.")}<div class="content-layout"><section class="panel"><h2>Thêm nguồn tham khảo</h2><form id="source-form" class="form-grid"><div class="field field-full"><label for="source-title">Tên nguồn</label><input id="source-title" name="title" required maxlength="150"></div><div class="field field-full"><label for="source-url">Địa chỉ website</label><input id="source-url" name="url" type="url" required></div><div class="field field-full"><label for="source-agency">Cơ quan</label><input id="source-agency" name="agency" required maxlength="150"></div><div class="field-full"><button class="button" type="submit">Lưu nguồn</button></div></form></section><section class="panel"><h2>Nguồn đang theo dõi</h2>${documents.map((item) => `<article class="list-item"><div><h3><a class="text-link" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.agency)} · Rà soát ${escapeHtml(item.checkedAt)}</p></div>${statusBadge(item.status)}</article>`).join("")}</section></div></div>`;
+  main.querySelector("#source-list").innerHTML = documents.map((item) => `<article class="list-item"><div><h3><a class="text-link" href="${escapeHtml(item.url)}" target="_blank" rel="noreferrer">${escapeHtml(item.title)}</a></h3><p>${escapeHtml(item.agency)} · Rà soát ${escapeHtml(item.checkedAt)}</p></div>${statusBadge(item.status)}</article>`).join("") || emptyState("Chưa có nguồn tham khảo");
 }
 
 async function renderProfile(main) {
-  if (!currentUser) return renderAccessDenied(main, "Đăng nhập để xem hồ sơ cá nhân.");
-  main.innerHTML = `<div class="page-shell">${pageHeading("Tài khoản", "Hồ sơ cá nhân", "Thông tin dùng cho trải nghiệm CivicGuide của bạn.")}<section class="panel" style="max-width:650px"><form id="profile-form" class="form-grid"><div class="field field-full"><label for="profile-name">Họ và tên</label><input id="profile-name" name="displayName" value="${escapeHtml(currentUser.displayName)}" required maxlength="100"></div><div class="field field-full"><label>Email</label><input value="${escapeHtml(currentUser.email)}" disabled></div><div class="field field-full"><label>Vai trò</label><input value="${escapeHtml(roleNames[currentUser.role] || currentUser.role)}" disabled></div><div class="field-full"><button class="button" type="submit">Lưu thay đổi</button></div></form></section></div>`;
+  main.querySelector("#profile-name").value = currentUser.displayName;
+  main.querySelector("#profile-email").value = currentUser.email;
+  main.querySelector("#profile-role").value = roleNames[currentUser.role] || currentUser.role;
 }
 
 async function renderSettings(main) {
-  if (!currentUser) return renderAccessDenied(main, "Đăng nhập để cập nhật cài đặt.");
   const saved = preferences.read();
-  main.innerHTML = `<div class="page-shell">${pageHeading("Tài khoản", "Cài đặt", "Tùy chỉnh cách CivicGuide hiển thị trên thiết bị này.")}<section class="panel" style="max-width:680px"><form id="settings-form"><label class="check-row"><input type="checkbox" name="compact" ${saved.compact ? "checked" : ""}><span><strong>Giao diện gọn</strong><br><span class="muted">Ưu tiên nội dung và giảm khoảng cách giữa các thẻ.</span></span></label><label class="check-row"><input type="checkbox" name="reminders" ${saved.reminders !== false ? "checked" : ""}><span><strong>Hiện gợi ý chuẩn bị hồ sơ</strong><br><span class="muted">Cho phép CivicGuide hiển thị nhắc nhở hữu ích.</span></span></label><button class="button" type="submit">Lưu cài đặt</button></form></section></div>`;
+  main.querySelector("[name='compact']").checked = saved.compact;
+  main.querySelector("[name='reminders']").checked = saved.reminders !== false;
 }
 
-function renderNotifications(main) {
-  main.innerHTML = `<div class="page-shell">${pageHeading("Tài khoản", "Thông báo", "Các cập nhật liên quan đến việc sử dụng CivicGuide.")}<section class="panel">${emptyState("Bạn đã cập nhật", "Thông báo về hồ sơ sẽ xuất hiện tại đây khi có thay đổi.")}</section></div>`;
-}
-
-function renderAccessDenied(main, message) {
-  main.innerHTML = `<div class="page-shell"><section class="panel">${pageHeading("Cần đăng nhập", "Không thể mở trang này", message)}<a class="button" href="${path.login}">Đăng nhập</a></section></div>`;
+function renderAccessDenied(main, message = "Hãy đăng nhập bằng tài khoản phù hợp hoặc quay lại trang tra cứu.") {
+  main.querySelector("[data-page-content]").hidden = true;
+  const denied = main.querySelector("#access-denied");
+  denied.hidden = false;
+  denied.querySelector("#access-denied-message").textContent = message;
 }
 
 async function renderPage(main) {
   if (roles[page] && (!currentUser || !roles[page].includes(currentUser.role))) {
-    main.innerHTML = `<div class="page-shell"><section class="panel">${pageHeading("403 · Truy cập bị giới hạn", "Bạn chưa có quyền xem trang này", "Hãy đăng nhập bằng tài khoản phù hợp hoặc quay lại trang tra cứu.")}<a class="button" href="${path.home}">Về trang chủ</a></section></div>`;
+    renderAccessDenied(main, "Bạn chưa có quyền xem trang này. Hãy đăng nhập bằng tài khoản phù hợp hoặc quay lại trang tra cứu.");
+    return;
+  }
+  if (["citizen-my-applications", "citizen-my-checklists", "profile", "settings"].includes(page) && !currentUser) {
+    renderAccessDenied(main, "Đăng nhập để xem và quản lý thông tin tài khoản của bạn.");
     return;
   }
   switch (page) {
     case "index": return renderHome(main);
     case "citizen-civic-search": return renderSearch(main);
     case "login":
-    case "register":
-    case "forgot-password": main.innerHTML = authPage(page); return;
+    case "register": return;
+    case "forgot-password": return;
     case "citizen-my-applications": return renderApplications(main);
     case "citizen-my-checklists":
       if (!currentUser) return renderAccessDenied(main, "Đăng nhập để lưu tiến độ chuẩn bị giấy tờ.");
-      main.innerHTML = `<div class="page-shell">${pageHeading("Không gian của bạn", "Danh sách giấy tờ", "Đánh dấu giấy tờ bạn đã chuẩn bị. Tiến độ được lưu vào tài khoản.")}<div class="stack" id="checklist-container"></div></div>`;
       return renderChecklists(main.querySelector("#checklist-container"), notify);
     case "officer-procedure-management": return renderProcedures(main, true);
     case "officer-faq-management": return renderFaqManagement(main);
@@ -225,9 +228,9 @@ async function renderPage(main) {
     case "editor-source-management": return renderSources(main);
     case "profile": return renderProfile(main);
     case "settings": return renderSettings(main);
-    case "notifications": return renderNotifications(main);
-    case "403": case "404": main.innerHTML = `<div class="page-shell"><section class="panel">${pageHeading(page === "403" ? "403 · Truy cập bị giới hạn" : "404 · Không tìm thấy", page === "403" ? "Bạn chưa có quyền xem trang này" : "Trang này không tồn tại", "Quay lại trang chủ hoặc tra cứu một thủ tục.")}<a class="button" href="${path.home}">Về trang chủ</a></section></div>`; return;
-    default: main.innerHTML = `<div class="page-shell">${emptyState("Trang đang được hoàn thiện")}</div>`;
+    case "notifications": return;
+    case "403": case "404": return;
+    default: return;
   }
 }
 
@@ -249,21 +252,32 @@ function showProcedure(procedure) {
     notify("Không thể mở chi tiết thủ tục tại trang này.", true);
     return;
   }
-  const content = document.querySelector("#procedure-dialog-content");
-  content.innerHTML = procedureDetails(procedure);
+  const detail = dialog.querySelector("#procedure-detail");
+  detail.hidden = false;
+  dialog.querySelector("#procedure-application").hidden = true;
+  detail.querySelector("[data-procedure-category]").textContent = procedure.category;
+  detail.querySelector("[data-procedure-title]").textContent = procedure.title;
+  detail.querySelector("[data-procedure-description]").textContent = procedure.description;
+  detail.querySelector("[data-procedure-updated]").textContent = procedure.updatedAt;
+  detail.querySelector("[data-procedure-agency]").textContent = procedure.agency;
+  detail.querySelector("[data-procedure-duration]").textContent = procedure.duration;
+  detail.querySelector("[data-procedure-fee]").textContent = procedure.fee;
+  const steps = procedure.steps?.length ? procedure.steps : ["Liên hệ cơ quan tiếp nhận để được hướng dẫn các bước cụ thể."];
+  detail.querySelector("[data-step-count]").textContent = String(steps.length);
+  detail.querySelector("#procedure-steps").innerHTML = steps.map((step, index) => `<li><span class="procedure-step-number" aria-hidden="true">${index + 1}</span><p>${escapeHtml(step)}</p></li>`).join("");
+  detail.querySelector("[data-action='apply']").dataset.id = procedure.id;
   dialog.showModal();
 }
 
-root.innerHTML = `${navigation()}<main id="main-content" tabindex="-1"><div class="page-shell"><div class="panel">Đang tải CivicGuide…</div></div></main>${footer()}<div class="toast-region" aria-live="polite"></div>`;
 const main = root.querySelector("#main-content");
 
 try {
   const session = await auth.session();
   currentUser = session.user;
-  root.querySelector(".site-header").outerHTML = navigation();
+  updateNavigation();
   await renderPage(main);
 } catch (error) {
-  main.innerHTML = `<div class="page-shell"><div class="panel"><strong>Không thể tải CivicGuide</strong><p class="muted">${escapeHtml(error.message)}</p><p>Hãy chạy máy chủ Node.js rồi tải lại trang.</p></div></div>`;
+  notify(`Không thể tải nội dung: ${error.message}. Hãy chạy máy chủ Node.js rồi tải lại trang.`, true);
 }
 
 root.addEventListener("click", async (event) => {
@@ -289,8 +303,13 @@ root.addEventListener("click", async (event) => {
         return;
       }
       const procedure = currentProcedures.find((item) => item.id === id) || currentProcedure;
-      const content = document.querySelector("#procedure-dialog-content");
-      content.innerHTML = `<h2>Theo dõi hồ sơ</h2><p class="muted">Tạo hồ sơ minh họa để theo dõi trong tài khoản của bạn.</p>${applicationForm(procedure)}`;
+      const dialog = document.querySelector("#procedure-dialog");
+      const detail = dialog.querySelector("#procedure-detail");
+      const application = dialog.querySelector("#procedure-application");
+      detail.hidden = true;
+      application.hidden = false;
+      application.querySelector("[name='procedureId']").value = procedure.id;
+      application.querySelector("[data-application-title]").textContent = procedure.title;
     } else if (action === "filter") {
       const buttons = root.querySelectorAll("[data-action='filter']");
       buttons.forEach((item) => item.classList.toggle("active", item === button));
@@ -367,7 +386,7 @@ root.addEventListener("submit", async (event) => {
     } else if (form.id === "profile-form") {
       const { user } = await api.patch("/api/session", formObject(form));
       currentUser = user;
-      root.querySelector(".site-header").outerHTML = navigation();
+      updateNavigation();
       notify("Đã cập nhật hồ sơ.");
     } else if (form.id === "settings-form") {
       preferences.write({ compact: form.elements.compact.checked, reminders: form.elements.reminders.checked });
