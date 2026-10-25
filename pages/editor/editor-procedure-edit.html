@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biên tập thủ tục - CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body data-role="editor" data-page="editor-procedure-edit" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <!-- Breadcrumb -->
+            <nav class="crumb" aria-label="Breadcrumb" style="margin-bottom: 20px;">
+                <a href="editor-dashboard-view.html">Không gian biên tập</a> › 
+                <a href="editor-procedure-manage.html">Quản lý thủ tục</a> › 
+                <span>Biên tập</span>
+            </nav>
+
+            <!-- Header -->
+            <header class="page-header">
+                <div>
+                    <h1 id="page-title">Biên tập thủ tục</h1>
+                    <p class="text-muted" style="margin-top: 4px;" id="page-subtitle">Cập nhật nội dung hướng dẫn và gửi yêu cầu phê duyệt.</p>
+                </div>
+                <!-- Badge trạng thái (sẽ được JS cập nhật) -->
+                <span class="badge" id="status-badge" style="background: #fde5c8; color: #9a5b10; padding: 6px 12px; font-size: 12px;">Đang tải...</span>
+            </header>
+
+            <form id="edit-procedure-form">
+                <!-- Phần 1: Thông tin thủ tục -->
+                <section class="card" style="padding: 24px; margin-bottom: 20px;">
+                    <h2 style="font-size: 18px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line);">Thông tin thủ tục</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="lbl" for="procedure-title">Tên thủ tục <span style="color:#c23030">*</span></label>
+                        <input class="input" id="procedure-title" required>
+                    </div>
+                    
+                    <div class="field-2" style="margin-bottom: 20px;">
+                        <div>
+                            <label class="lbl" for="procedure-category">Lĩnh vực</label>
+                            <select class="input" id="procedure-category">
+                                <option value="Hộ tịch &amp; gia đình">Hộ tịch &amp; gia đình</option>
+                                <option value="Cư trú &amp; định danh">Cư trú &amp; định danh</option>
+                                <option value="Giấy tờ &amp; xác nhận">Giấy tờ &amp; xác nhận</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="lbl" for="procedure-scope">Phạm vi áp dụng</label>
+                            <select class="input" id="procedure-scope">
+                                <option value="Trong nước">Trong nước</option>
+                                <option value="Có yếu tố nước ngoài">Có yếu tố nước ngoài</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 20px;">
+                        <label class="lbl" for="procedure-summary">Mô tả ngắn</label>
+                        <textarea class="input" id="procedure-summary" rows="3" style="height: auto; padding: 12px; resize: vertical;"></textarea>
+                    </div>
+
+                    <div>
+                        <label class="lbl" for="procedure-documents">Giấy tờ cần chuẩn bị</label>
+                        <textarea class="input" id="procedure-documents" rows="5" style="height: auto; padding: 12px; line-height: 1.6; resize: vertical;"></textarea>
+                        <p class="hint" style="margin-top: 8px;">Mỗi dòng là một giấy tờ. Nội dung cần được đối chiếu nguồn chính thức.</p>
+                    </div>
+                </section>
+
+                <!-- Phần 2: Nguồn tham khảo -->
+                <section class="card" style="padding: 24px; margin-bottom: 20px;">
+                    <h2 style="font-size: 18px; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--line);">Nguồn tham khảo &amp; ghi chú</h2>
+                    
+                    <div style="margin-bottom: 20px;">
+                        <label class="lbl" for="procedure-source">Nguồn cần đối chiếu</label>
+                        <input class="input" id="procedure-source" value="Luật Hộ tịch 2014 · Cổng Dịch vụ công Quốc gia">
+                    </div>
+                    
+                    <label class="check" style="align-items: flex-start; margin: 0;">
+                        <input type="checkbox" id="procedure-verified" checked style="margin-top: 3px;">
+                        <span style="font-weight: 400;">Đã kiểm tra thông tin và đánh dấu các phần cần xác minh</span>
+                    </label>
+                </section>
+
+                <!-- Thanh Actions -->
+                <div class="acts" style="justify-content: flex-end; gap: 12px; background: var(--card); padding: 16px 20px; border-radius: var(--r); border: 1px solid var(--line);">
+                    <a href="editor-procedure-manage.html" class="btn btn-outline">Hủy</a>
+                    <button type="submit" class="btn btn-outline">Lưu bản nháp</button>
+                    <button type="button" class="btn btn-primary" id="btn-submit-approval">Gửi phê duyệt</button>
+                </div>
+            </form>
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <!-- Thư viện dùng chung -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    
+    <!-- JS riêng cho trang này -->
+    <script src="../../js/modules/editor-procedure-edit.js"></script>
+</body>
+</html>

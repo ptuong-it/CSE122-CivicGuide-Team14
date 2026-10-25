@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trung tâm trợ giúp – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../.." data-nav="help">
+    <div id="site-header"></div>
+
+    <main>
+        <div class="container">
+
+            <!-- Breadcrumb -->
+            <nav class="crumb" aria-label="Breadcrumb">
+                <a href="../../index.html">Trang chủ</a> &rsaquo;
+                <a href="#">Hỗ trợ</a> &rsaquo;
+                <span>Trung tâm trợ giúp</span>
+            </nav>
+
+            <!-- Page head -->
+            <div class="page-head">
+                <div>
+                    <h1>Trung tâm trợ giúp</h1>
+                    <p class="sub">Tìm câu trả lời, hiểu từng bước và chọn đúng hướng hỗ trợ.</p>
+                </div>
+                <a class="btn" href="../../index.html">← Về trang chủ</a>
+            </div>
+
+            <!-- Search -->
+            <section class="card">
+                <h2 style="font-size:18px">Bạn cần giúp về vấn đề gì?</h2>
+                <div class="search-bar" style="margin-top:8px">
+                    <div>
+                        <label class="lbl" for="help-q">Tìm trong hướng dẫn sử dụng</label>
+                        <input class="input" id="help-q" type="text"
+                            placeholder="Nhập từ khóa: tải tệp, khôi phục mật khẩu...">
+                    </div>
+                    <button class="btn btn-primary" type="button">Tìm kiếm</button>
+                </div>
+                <div class="chips">
+                    <span>Thường được tìm:</span>
+                    <button class="chip" type="button">bổ sung hồ sơ</button>
+                    <button class="chip" type="button">giấy tờ kết hôn</button>
+                    <button class="chip" type="button">thông báo</button>
+                </div>
+            </section>
+
+            <!-- 3 nhóm hướng dẫn chính -->
+            <div class="grid-3">
+                <div class="card icon-card">
+                    <span class="ico" data-icon="check"></span>
+                    <h3>Checklist &amp; giấy tờ</h3>
+                    <p>Lưu thủ tục, đánh dấu chuẩn bị và kiểm tra tài liệu.</p>
+                    <a class="link" href="#">Xem hướng dẫn →</a>
+                </div>
+                <div class="card icon-card">
+                    <span class="ico" data-icon="copy"></span>
+                    <h3>Hồ sơ &amp; theo dõi</h3>
+                    <p>Các bước gửi minh họa và cách đọc trạng thái hồ sơ.</p>
+                    <a class="link" href="#">Xem hướng dẫn →</a>
+                </div>
+                <div class="card icon-card">
+                    <span class="ico" data-icon="shield"></span>
+                    <h3>Tài khoản &amp; bảo mật</h3>
+                    <p>Đăng nhập, khôi phục mật khẩu và quyền riêng tư.</p>
+                    <a class="link" href="#">Xem hướng dẫn →</a>
+                </div>
+            </div>
+
+            <!-- Banner: nhấn mạnh phân biệt checklist vs hồ sơ đã nộp -->
+            <div class="banner">
+                <span data-icon="info" data-size="16"></span>
+                <div>
+                    <b>Checklist đã hoàn thành không có nghĩa là hồ sơ đã nộp</b>
+                    Checklist chỉ ghi nhận việc chuẩn bị. Bạn cần hoàn thiện các bước thông tin, giấy tờ và kiểm tra
+                    trước khi gửi minh họa. Khi làm thủ tục thật, hãy dùng kênh chính thức của cơ quan tiếp nhận.
+                </div>
+            </div>
+
+            <!-- Layout 2 cột: FAQ + "Chọn đúng nơi hỗ trợ" -->
+            <div class="layout">
+
+                <!-- Cột trái: FAQ -->
+                <section class="card faq">
+                    <h2 style="font-size:18px">Câu hỏi thường gặp</h2>
+
+                    <div class="row">
+                        <div>
+                            <h3>Tôi cần chuẩn bị gì để đăng ký kết hôn?</h3>
+                            <p>Xem thủ tục <a class="link"
+                                    href="../public/public-procedure-detail.html?id=P001">P001</a>
+                                và xác nhận yêu cầu theo trường hợp của hai bên.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <h3>Tệp đính kèm cần có định dạng nào?</h3>
+                            <p>Bản minh họa dùng PDF, JPG, PNG; tối đa 10 MB mỗi tệp.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <h3>Hồ sơ yêu cầu bổ sung: tôi phải làm gì?</h3>
+                            <p>Mở <a class="link" href="../citizen/citizen-application-track.html">Theo dõi hồ sơ</a>,
+                                đọc yêu cầu và chuẩn bị tài liệu rõ nét.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <h3>Không nhận được email khôi phục mật khẩu?</h3>
+                            <p>Kiểm tra thư rác, địa chỉ nhập và thời gian chờ trước khi gửi lại. Xem
+                                <a class="link" href="../public/public-password-reset.html">Khôi phục mật khẩu</a>.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <h3>CivicGuide có phải cổng dịch vụ công chính thức?</h3>
+                            <p>Không. Đây là thiết kế minh họa, không xác thực hay gửi hồ sơ thật.</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div>
+                            <h3>Checklist đã hoàn thành có nghĩa là hồ sơ đã nộp?</h3>
+                            <p>Không. Checklist chỉ ghi nhận việc chuẩn bị. Bạn cần hoàn thiện các bước thông tin, giấy
+                                tờ và kiểm tra trước khi gửi minh họa. Khi làm thủ tục thật, hãy dùng kênh chính thức
+                                của cơ quan tiếp nhận.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Cột phải: Chọn đúng nơi hỗ trợ + TOC -->
+                <aside>
+                    <section class="card side-list">
+                        <h2 style="font-size:16px">Chọn đúng nơi hỗ trợ</h2>
+
+                        <div class="row">
+                            <div>
+                                <h3>Vấn đề sử dụng CivicGuide</h3>
+                                <p>Đăng nhập, biểu mẫu, tải tệp và thông báo.</p>
+                            </div>
+                            <a class="link" href="#">Xem hướng dẫn →</a>
+                        </div>
+
+                        <div class="row">
+                            <div>
+                                <h3>Yêu cầu hành chính thực tế</h3>
+                                <p>Thẩm quyền, giấy tờ, lệ phí và kết quả: hỏi cơ quan tiếp nhận hoặc kênh chính thức.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div>
+                                <h3>Chưa tìm thấy câu trả lời?</h3>
+                                <p>Mô tả vấn đề và chọn hồ sơ liên quan để có đầy đủ ngữ cảnh.</p>
+                            </div>
+                            <a class="btn btn-primary" href="#">Gửi yêu cầu hỗ trợ</a>
+                        </div>
+                    </section>
+
+                    <section class="card toc">
+                        <h2 style="font-size:16px">Trong trang này</h2>
+                        <a href="#faq" class="on">Câu hỏi thường gặp</a>
+                        <a href="#help-topics">Chọn đúng nơi hỗ trợ</a>
+                        <a href="#support-cta">Chưa tìm thấy câu trả lời?</a>
+                    </section>
+                </aside>
+            </div>
+
+            <!-- CTA cuối trang -->
+            <section class="cta" id="support-cta">
+                <div>
+                    <h2>Chưa tìm thấy câu trả lời?</h2>
+                    <p>Đọc điều khoản hoặc gửi câu hỏi về trải nghiệm sản phẩm, không kèm giấy tờ thật.</p>
+                </div>
+                <div class="acts">
+                    <a class="btn btn-white" href="../shared/shared-terms-privacy.html">Đọc điều khoản</a>
+                    <a class="btn btn-primary" href="#">Gửi yêu cầu hỗ trợ</a>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="site-footer"></div>
+
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+</body>
+
+</html>

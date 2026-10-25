@@ -1,0 +1,68 @@
+[
+    {
+        "id": "N1",
+        "icon": "fileclock",
+        "title": "Hồ sơ kết hôn cần bổ sung",
+        "body": "CG-2026-001248 · Tải lại tài liệu thông tin cư trú rõ nét trước 07/10/2026 trong kịch bản minh họa.",
+        "cat": "Hồ sơ",
+        "time": "02/10/2026 · 14:30",
+        "cta": "Theo dõi hồ sơ →",
+        "href": "citizen-application-detail.html",
+        "unread": true
+    },
+    {
+        "id": "N2",
+        "icon": "filecheck",
+        "title": "Hồ sơ kết hôn đã được tiếp nhận",
+        "body": "CG-2026-001248 · Chuyển sang bước kiểm tra thông tin và tài liệu.",
+        "cat": "Hồ sơ",
+        "time": "01/10/2026 · 10:00",
+        "cta": "Xem hồ sơ kết hôn →",
+        "href": "citizen-application-detail.html",
+        "unread": true
+    },
+    {
+        "id": "N3",
+        "icon": "send",
+        "title": "Đã ghi nhận gửi hồ sơ minh họa",
+        "body": "Bản xác nhận mẫu đã sẵn sàng cho CG-2026-001248. Đây không phải biên nhận chính thức.",
+        "cat": "Hồ sơ",
+        "time": "01/10/2026 · 09:15",
+        "cta": "Xem bản xác nhận →",
+        "href": "citizen-application-detail.html",
+        "unread": false
+    },
+    {
+        "id": "N4",
+        "icon": "tasks",
+        "title": "Checklist kết hôn còn 2 mục cần chuẩn bị",
+        "body": "Tiến độ tại thời điểm nhắc: 2 / 4 mục. Kiểm tra tình trạng hôn nhân và thông tin cư trú.",
+        "cat": "Checklist",
+        "time": "30/09/2026 · 16:20",
+        "cta": "Mở Checklist của tôi →",
+        "href": "citizen-checklist-manage.html",
+        "unread": false
+    },
+    {
+        "id": "N5",
+        "icon": "bookmark",
+        "title": "Thủ tục đã lưu có nội dung cập nhật",
+        "body": "Đăng ký kết hôn · Hướng dẫn xác minh giấy tờ đã được rà soát. Đối chiếu với nơi tiếp nhận trước khi thực hiện.",
+        "cat": "Thủ tục đã lưu",
+        "time": "30/09/2026 · 09:00",
+        "cta": "Xem chi tiết thủ tục →",
+        "href": "../public/public-procedure-detail.html?id=P001",
+        "unread": true
+    },
+    {
+        "id": "N6",
+        "icon": "gear",
+        "title": "Tùy chọn thông báo đã được lưu",
+        "body": "Bạn đang nhận thông báo hồ sơ và cập nhật thủ tục đã lưu trong ứng dụng.",
+        "cat": "Tài khoản",
+        "time": "29/09/2026 · 15:00",
+        "cta": "Tài khoản & bảo mật →",
+        "href": "citizen-account-settings.html",
+        "unread": false
+    }
+]

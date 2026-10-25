@@ -1,0 +1,331 @@
+{
+    "groups": [
+        {
+            "id": "ket-hon",
+            "name": "Kết hôn & gia đình",
+            "icon": "heart",
+            "count": 8,
+            "items": [
+                "Đăng ký kết hôn",
+                "Xác nhận tình trạng hôn nhân",
+                "Trích lục kết hôn"
+            ]
+        },
+        {
+            "id": "sinh-con",
+            "name": "Sinh con",
+            "icon": "smile",
+            "count": 6,
+            "items": [
+                "Đăng ký khai sinh",
+                "Đăng ký thường trú cho trẻ",
+                "Cấp thẻ bảo hiểm y tế cho trẻ"
+            ]
+        },
+        {
+            "id": "cu-tru",
+            "name": "Chuyển nhà & cư trú",
+            "icon": "home",
+            "count": 9,
+            "items": [
+                "Đăng ký thường trú",
+                "Đăng ký tạm trú",
+                "Xác nhận thông tin cư trú"
+            ]
+        },
+        {
+            "id": "giay-to",
+            "name": "Giấy tờ cá nhân",
+            "icon": "id",
+            "count": 7,
+            "items": [
+                "Cấp căn cước",
+                "Cấp hộ chiếu phổ thông",
+                "Cấp lại giấy tờ bị mất"
+            ]
+        },
+        {
+            "id": "viec-lam",
+            "name": "Việc làm & an sinh",
+            "icon": "bag",
+            "count": 6,
+            "items": [
+                "Hưởng trợ cấp thất nghiệp",
+                "Đăng ký bảo hiểm xã hội",
+                "Xác nhận quá trình đóng bảo hiểm"
+            ]
+        },
+        {
+            "id": "kinh-doanh",
+            "name": "Kinh doanh",
+            "icon": "store",
+            "count": 6,
+            "items": [
+                "Đăng ký hộ kinh doanh",
+                "Thay đổi nội dung đăng ký",
+                "Tạm ngừng kinh doanh"
+            ]
+        }
+    ],
+    "results": [
+        {
+            "id": "P001",
+            "type": "Thủ tục",
+            "title": "Đăng ký kết hôn",
+            "desc": "Hướng dẫn chuẩn bị tờ khai, giấy tờ định danh và thông tin cư trú cho hai bên.",
+            "meta": "Cấp xã / phường · Trong nước · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp",
+                "Trực tuyến"
+            ],
+            "best": true,
+            "kw": "đăng ký kết hôn...",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P018",
+            "type": "Thủ tục",
+            "title": "Đăng ký kết hôn có yếu tố nước ngoài",
+            "desc": "Tìm hiểu hồ sơ khi một trong hai bên có quốc tịch hoặc cư trú ở nước ngoài.",
+            "meta": "Thẩm quyền cần xác minh theo địa phương · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "đăng ký kết hôn...",
+            "status": "warning",
+            "aiStatus": "warning",
+            "updatedDate": "13/12/2024"
+        },
+        {
+            "id": "P021",
+            "type": "Thủ tục",
+            "title": "Đăng ký lại kết hôn",
+            "desc": "Hướng dẫn tra cứu và chuẩn bị hồ sơ khi thông tin hộ tịch cần đăng ký lại.",
+            "meta": "Hộ tịch · Cấp xã / phường · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "đăng ký lại kết hôn...",
+            "status": "draft",
+            "aiStatus": "",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P002",
+            "type": "Thủ tục",
+            "title": "Xác nhận tình trạng hôn nhân",
+            "desc": "Chuẩn bị giấy tờ liên quan trước khi đăng ký kết hôn, nếu được yêu cầu.",
+            "meta": "Kết hôn & gia đình · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "xác nhận tình trạng hôn nhân...",
+            "status": "sync",
+            "aiStatus": "synced",
+            "updatedDate": "13/12/2024"
+        },
+        {
+            "id": "G01",
+            "type": "Hướng dẫn",
+            "title": "Chuẩn bị kết hôn: bắt đầu từ đâu?",
+            "desc": "Các bước từ kiểm tra điều kiện, chuẩn bị giấy tờ đến theo dõi hồ sơ.",
+            "meta": "Hướng dẫn · 5 phút đọc · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "chuẩn bị kết hôn...",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P003",
+            "type": "Thủ tục",
+            "title": "Trích lục kết hôn",
+            "desc": "Chuẩn bị thông tin để xin bản sao giấy chứng nhận kết hôn đã đăng ký.",
+            "meta": "Hộ tịch · Cấp xã / phường · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "trích lục kết hôn...",
+            "status": "warning",
+            "aiStatus": "warning",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P004",
+            "type": "Thủ tục",
+            "title": "Cấp giấy xác nhận độc thân",
+            "desc": "Thông tin cần chuẩn bị khi cần xác nhận tình trạng hôn nhân.",
+            "meta": "Hộ tịch · Cấp xã / phường · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "cấp giấy xác nhận độc thân...",
+            "status": "draft",
+            "aiStatus": "",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P005",
+            "type": "Thủ tục",
+            "title": "Ghi chú kết hôn đã đăng ký ở nước ngoài",
+            "desc": "Hướng dẫn ghi vào sổ hộ tịch việc kết hôn thực hiện ngoài lãnh thổ.",
+            "meta": "Thẩm quyền cần xác minh · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "ghi chú kết hôn...",
+            "status": "warning",
+            "aiStatus": "warning",
+            "updatedDate": "13/12/2024"
+        },
+        {
+            "id": "P006",
+            "type": "Thủ tục",
+            "title": "Cải chính thông tin trên giấy đăng ký kết hôn",
+            "desc": "Chuẩn bị hồ sơ khi thông tin trên giấy chứng nhận có sai sót.",
+            "meta": "Hộ tịch · Cấp xã / phường · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "cải chính thông tin...",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P007",
+            "type": "Thủ tục",
+            "title": "Thay đổi thông tin hộ tịch sau kết hôn",
+            "desc": "Cập nhật thông tin cá nhân liên quan sau khi đăng ký kết hôn.",
+            "meta": "Hộ tịch · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "thay đổi thông tin hộ tịch...",
+            "status": "sync",
+            "aiStatus": "synced",
+            "updatedDate": "13/12/2024"
+        },
+        {
+            "id": "G02",
+            "type": "Hướng dẫn",
+            "title": "Câu hỏi thường gặp về kết hôn",
+            "desc": "Giải đáp những thắc mắc phổ biến trước khi chuẩn bị hồ sơ.",
+            "meta": "Hướng dẫn · 4 phút đọc · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "câu hỏi thường gặp...",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "G03",
+            "type": "Hướng dẫn",
+            "title": "Việc cần làm sau khi đăng ký kết hôn",
+            "desc": "Các giấy tờ và thông tin nên rà soát sau khi có giấy chứng nhận.",
+            "meta": "Hướng dẫn · 6 phút đọc · Cập nhật 30/09/2026",
+            "event": "Kết hôn & gia đình",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp"
+            ],
+            "best": false,
+            "kw": "việc cần làm sau khi đăng ký kết hôn...",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P008",
+            "type": "Thủ tục",
+            "title": "Đăng ký khai sinh",
+            "desc": "Thủ tục đăng ký khai sinh cho trẻ mới sinh tại UBND cấp xã hoặc liên thông điện tử.",
+            "meta": "Cấp xã / phường · Trong nước · Cập nhật 30/09/2026",
+            "event": "Sinh con",
+            "field": "Hộ tịch",
+            "form": [
+                "Trực tiếp",
+                "Trực tuyến"
+            ],
+            "best": true,
+            "kw": "đăng ký khai sinh, khai sinh con, giay khai sinh",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P009",
+            "type": "Thủ tục",
+            "title": "Đăng ký thường trú",
+            "desc": "Thủ tục đăng ký nơi thường trú cho công dân khi chuyển đến chỗ ở hợp pháp mới.",
+            "meta": "Công an cấp xã · Trong nước · Cập nhật 30/09/2026",
+            "event": "Chuyển nhà & cư trú",
+            "field": "Cư trú",
+            "form": [
+                "Trực tiếp",
+                "Trực tuyến"
+            ],
+            "best": true,
+            "kw": "đăng ký thường trú, nhập hộ khẩu, thuong tru",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        },
+        {
+            "id": "P010",
+            "type": "Thủ tục",
+            "title": "Cấp thẻ căn cước",
+            "desc": "Thủ tục cấp thẻ căn cước cho công dân Việt Nam theo Luật Căn cước mới.",
+            "meta": "Cơ quan quản lý căn cước · Cập nhật 30/09/2026",
+            "event": "Giấy tờ cá nhân",
+            "field": "Căn cước",
+            "form": [
+                "Trực tiếp",
+                "Trực tuyến"
+            ],
+            "best": true,
+            "kw": "cấp thẻ căn cước, lam can cuoc cong dan, cccd",
+            "status": "published",
+            "aiStatus": "synced",
+            "updatedDate": "12/12/2024"
+        }
+    ]
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan biên tập - CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body data-role="editor" data-page="editor-dashboard" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Xin chào, biên tập viên</h1>
+                    <p class="text-muted">Theo dõi nội dung và các cập nhật đang cần xử lý.</p>
+                </div>
+                <a href="editor-procedure-edit.html" class="btn btn-primary">+ Soạn thủ tục</a>
+            </header>
+
+            <!-- KPI (JS sẽ tự tính) -->
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <span class="kpi-label">Thủ tục đã biên tập</span>
+                    <strong class="kpi-value" id="kpi-edited">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Bản nháp</span>
+                    <strong class="kpi-value" id="kpi-drafts">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Chờ phê duyệt</span>
+                    <strong class="kpi-value" id="kpi-pending">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Cảnh báo AI mới</span>
+                    <strong class="kpi-value text-danger" id="kpi-ai-alerts">--</strong>
+                </article>
+            </section>
+
+            <section class="charts-row">
+                <!-- Việc cần làm -->
+                <article class="chart-card">
+                    <h2 class="chart-title">Việc cần làm</h2>
+                    <ul class="activity-list" id="task-list">
+                        <li style="color: var(--muted);">Đang tải dữ liệu...</li>
+                    </ul>
+                </article>
+
+                <!-- Cập nhật gần đây -->
+                <article class="chart-card">
+                    <h2 class="chart-title">Cập nhật gần đây</h2>
+                    <div id="recent-list">
+                        <p class="text-muted">Đang tải dữ liệu...</p>
+                    </div>
+                    <div class="empty-actions">
+                        <a href="editor-procedure-manage.html" class="link-arrow">Xem tất cả thủ tục →</a>
+                    </div>
+                </article>
+            </section>
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <!-- Sửa thứ tự load JS -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    
+    <!-- JS riêng cho trang này -->
+    <script src="../../js/modules/editor-dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Hồ sơ của tôi – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="apps" data-tab="apps">
+    <div id="site-header"></div>
+    <div id="subnav"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Hồ sơ của tôi</div>
+            <div class="page-head">
+                <div>
+                    <h1 style="font-size:24px">Hồ sơ của tôi</h1>
+                    <p class="sub">Theo dõi hồ sơ đã gửi và những bản nháp đang chuẩn bị. Dữ liệu tại ngày 03/10/2026.
+                    </p>
+                </div><a class="btn btn-primary" href="citizen-application-create.html">Chuẩn bị hồ sơ mới</a>
+            </div>
+            <div class="stats">
+                <div class="stat"><b>03</b>
+                    <p style="font-size:12.5px">Tổng hồ sơ</p>
+                </div>
+                <div class="stat"><b>01</b>
+                    <p style="font-size:12.5px">Cần bổ sung</p>
+                </div>
+                <div class="stat"><b>01</b>
+                    <p style="font-size:12.5px">Đã hoàn thành</p>
+                </div>
+                <div class="stat"><b>01</b>
+                    <p style="font-size:12.5px">Bản nháp</p>
+                </div>
+            </div>
+            <div class="alert alert-warn" style="padding:16px"><span data-icon="warn" data-size="18"></span>
+                <div><b>Hồ sơ kết hôn cần bổ sung thông tin cư trú</b>CG-2026-001248 · Yêu cầu ngày 02/10/2026. Tải lại
+                    tài liệu rõ nét trước ngày 07/10/2026 trong kịch bản minh họa.</div>
+            </div>
+            <section class="card">
+                <div class="filter-row" style="grid-template-columns:1fr 1fr 1fr">
+                    <div><label class="lbl" for="q">Tìm hồ sơ</label><input id="q" class="input"
+                            placeholder="Nhập mã hồ sơ hoặc tên thủ tục"></div>
+                    <div><label class="lbl" for="st">Trạng thái</label><select id="st" class="input">
+                            <option value="">Tất cả trạng thái</option>
+                            <option>Cần bổ sung</option>
+                            <option>Đã hoàn thành</option>
+                            <option>Đang soạn</option>
+                            <option>Chờ tiếp nhận</option>
+                        </select></div>
+                    <div><label class="lbl">Thời gian</label><select class="input">
+                            <option>Tháng 10/2026</option>
+                        </select></div>
+                </div>
+                <div class="pills" id="pills" style="margin-bottom:16px"></div>
+                <table class="table apps">
+                    <thead>
+                        <tr>
+                            <th>Mã hồ sơ / thủ tục</th>
+                            <th>Ngày gửi</th>
+                            <th>Trạng thái</th>
+                            <th>Việc tiếp theo</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody id="rows"></tbody>
+                </table>
+                <div class="pager"><span id="count"></span><span class="badge-count">Trang 1 / 1</span></div>
+            </section>
+            <div class="grid-2">
+                <section class="card">
+                    <h2 style="font-size:19px">Bạn chỉ mới chuẩn bị giấy tờ?</h2>
+                    <p style="font-size:12.5px;margin:12px 0 14px">Checklist lưu công việc chuẩn bị, không tự tạo hồ sơ
+                        đã nộp.</p><a class="btn" href="citizen-checklist-manage.html">Mở Checklist của tôi</a>
+                </section>
+                <section class="card">
+                    <h2 style="font-size:19px">Cần hướng dẫn theo dõi?</h2>
+                    <p style="font-size:12.5px;margin:12px 0 14px">Đọc cách xem tiến độ, yêu cầu bổ sung và nhận kết
+                        quả.</p><a class="btn" href="#">Xem Trung tâm trợ giúp</a>
+                </section>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

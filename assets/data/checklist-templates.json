@@ -1,0 +1,74 @@
+{
+    "checklists": [
+        {
+            "id": "ket-hon",
+            "title": "Đăng ký kết hôn",
+            "couple": "Nguyễn An & Trần Bình",
+            "saved": "29/09/2026",
+            "office": "UBND phường Minh Hòa (minh họa)",
+            "items": [
+                {
+                    "t": "Tờ khai đăng ký kết hôn",
+                    "n": "to_khai_ket_hon_mau.pdf · Đã điền thông tin hai bên.",
+                    "t2": "Tờ khai đăng ký kết hôn",
+                    "n2": "Điền đầy đủ thông tin của hai bên theo mẫu quy định.",
+                    "done": true
+                },
+                {
+                    "t": "Căn cước / hộ chiếu của hai bên",
+                    "n": "dinh_danh_hai_ben_mau.pdf · Đã chuẩn bị bản chụp mẫu.",
+                    "t2": "Căn cước công dân / Hộ chiếu",
+                    "n2": "Bản chính còn hiệu lực của cả hai bên.",
+                    "done": true
+                },
+                {
+                    "t": "Thông tin tình trạng hôn nhân",
+                    "n": "Cần xác minh yêu cầu và chuẩn bị tài liệu nếu được đề nghị.",
+                    "t2": "Giấy xác nhận tình trạng hôn nhân",
+                    "n2": "Do UBND cấp xã nơi cư trú cấp, còn thời hạn sử dụng.",
+                    "done": false
+                },
+                {
+                    "t": "Thông tin cư trú",
+                    "n": "Cần xác nhận giấy tờ hoặc dữ liệu cư trú được nơi tiếp nhận chấp nhận.",
+                    "t2": "Giấy tờ chứng minh nơi cư trú",
+                    "n2": "Chuẩn bị thông tin cư trú hoặc giấy tờ hợp lệ.",
+                    "done": false
+                }
+            ]
+        }
+    ],
+    "saved": [
+        {
+            "id": "P001",
+            "title": "Đăng ký kết hôn",
+            "status": "prep",
+            "label": "Đang chuẩn bị · 2 / 4 mục",
+            "saved": "29/09/2026",
+            "upd": "30/09/2026",
+            "flag": true,
+            "note": "Đọc lại hướng dẫn xác minh giấy tờ; tiếp tục checklist đã lưu.",
+            "btn": "Tiếp tục checklist"
+        },
+        {
+            "id": "P002",
+            "title": "Xác nhận tình trạng hôn nhân",
+            "status": "new",
+            "label": "Chưa bắt đầu · 0 / 3 mục",
+            "saved": "29/09/2026",
+            "upd": "28/09/2026",
+            "note": "Xác nhận với nơi tiếp nhận xem trường hợp của bạn có cần giấy xác nhận.",
+            "btn": "Mở checklist"
+        },
+        {
+            "id": "P003",
+            "title": "Trích lục kết hôn",
+            "status": "ref",
+            "label": "Chỉ lưu tham khảo",
+            "saved": "30/09/2026",
+            "upd": "25/09/2026",
+            "note": "Đọc hướng dẫn sau khi hoàn tất đăng ký; chưa tạo checklist.",
+            "btn": "Xem hướng dẫn"
+        }
+    ]
+}

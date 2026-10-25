@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Thông báo – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="notif" data-tab="notif">
+    <div id="site-header"></div>
+    <div id="subnav"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Thông báo</div>
+            <div class="page-head">
+                <div>
+                    <h1 style="font-size:24px">Thông báo</h1>
+                    <p class="sub">Cập nhật hồ sơ, checklist và tài khoản của bạn tại một nơi.</p>
+                </div><button class="btn" id="readall">Đánh dấu tất cả đã đọc</button>
+            </div>
+            <div class="pills" id="pills" style="margin-bottom:20px"></div>
+            <div class="layout" style="grid-template-columns:1fr 270px">
+                <div id="list"></div>
+                <aside>
+                    <section class="card">
+                        <h2>Lọc thông báo</h2><label class="lbl" for="f-time">Khoảng thời gian</label><select
+                            class="input" id="f-time">
+                            <option>30 ngày gần nhất</option>
+                            <option>7 ngày gần nhất</option>
+                        </select>
+                        <label class="lbl" for="f-cat" style="margin-top:16px">Danh mục</label><select class="input"
+                            id="f-cat">
+                            <option value="">Tất cả danh mục</option>
+                            <option>Hồ sơ</option>
+                            <option>Checklist</option>
+                            <option>Thủ tục đã lưu</option>
+                            <option>Tài khoản</option>
+                        </select><button class="btn btn-primary btn-block" id="apply" style="margin-top:16px">Áp
+                            dụng</button>
+                    </section>
+                    <section class="card">
+                        <h2 id="ucount">3 thông báo chưa đọc</h2><span class="tag tag-warn" style="margin:8px 0 12px">1
+                            việc cần xử lý</span>
+                        <p style="font-size:12.5px;margin-bottom:14px">Ưu tiên yêu cầu bổ sung thông tin cư trú trong hồ
+                            sơ kết hôn.</p><a class="btn btn-primary btn-block"
+                            href="citizen-application-detail.html">Theo dõi hồ sơ</a>
+                    </section>
+                    <div class="alert alert-info"><span data-icon="info" data-size="16"></span>
+                        <div><b>Chủ động chọn thông báo</b>Điều chỉnh email, thông báo hồ sơ và nhắc checklist trong Tài
+                            khoản &amp; bảo mật.</div>
+                    </div>
+                    <a class="btn btn-block" href="citizen-account-settings.html#thong-bao">Cài đặt thông báo</a>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/modules/form-validator.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Trang chủ %T checklist công dân – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="ckhome" data-tab="home">
+    <div id="site-header"></div>
+    <main>
+        <div class="container">
+            <section class="hero" style="margin-top:8px">
+                <h1 style="font-size:26px">CivicGuide · Trang chủ &amp; checklist công dân</h1>
+                <p style="font-size:15px;margin:14px 0">Tìm đúng thủ tục. Chuẩn bị đủ giấy tờ. Theo dõi từng bước dễ
+                    dàng.</p>
+                <form action="../public/public-procedure-search.html"><input name="q"
+                        placeholder="Bạn cần thực hiện thủ tục gì?" style="height:40px"><button class="btn btn-primary"
+                        style="height:38px">Tìm kiếm</button></form>
+            </section>
+            <div class="layout" style="grid-template-columns:1fr 270px">
+                <section class="card" style="padding:24px">
+                    <div class="saved-head">
+                        <h2 style="font-size:20px">Checklist của tôi · Đăng ký kết hôn</h2><span class="ok-t"
+                            style="font-size:12px" data-prog-text="N / T giấy tờ đã chuẩn bị">2 / 4 giấy tờ đã chuẩn
+                            bị</span>
+                    </div>
+                    <div class="progress" style="height:7px;margin:14px 0 6px"><i style="width:50%"></i></div>
+                    <div id="ck-list"></div>
+                    <div class="acts"><button class="btn btn-primary" id="pdf">Tải checklist PDF</button><button
+                            class="btn" id="save">Lưu tiến độ</button></div>
+                </section>
+                <aside>
+                    <section class="card kv">
+                        <h2>Thông tin thủ tục</h2><small style="margin-top:0">Nơi thực hiện</small><b>UBND cấp xã nơi cư
+                            trú</b><small>Thời gian xử lý</small><b>03 ngày làm việc</b><small>Lệ phí</small><b>Miễn phí
+                            trong nước</b><small>Cập nhật lần cuối</small><b>12/12/2024</b><a
+                            class="btn btn-primary btn-block" style="margin-top:16px"
+                            href="../public/public-procedure-detail.html?id=P001">Xem hướng dẫn đầy đủ</a>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

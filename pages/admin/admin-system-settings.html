@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cài đặt hệ thống - Quản trị viên | CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <style>
+        /* CSS bổ sung cho trang cài đặt */
+        .settings-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 24px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .settings-layout { grid-template-columns: 1fr; }
+        }
+        .settings-section {
+            margin-bottom: 32px;
+        }
+        .settings-section h2 {
+            font-size: 17px;
+            margin-bottom: 16px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--line);
+            color: var(--navy);
+        }
+        .setting-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--line);
+        }
+        .setting-item:last-child { border-bottom: 0; }
+        .setting-item-info { flex: 1; padding-right: 20px; }
+        .setting-item-info b { display: block; font-size: 13px; margin-bottom: 4px; }
+        .setting-item-info p { font-size: 12px; color: var(--muted); }
+        
+        .source-list { background: var(--bg); border-radius: 6px; padding: 12px; margin-bottom: 16px; }
+        .source-list-item { display: flex; justify-content: space-between; font-size: 12px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+        .source-list-item:last-child { border-bottom: 0; }
+    </style>
+</head>
+<body data-role="admin" data-page="admin-settings" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            
+            <header class="page-header">
+                <div>
+                    <h1>Cài đặt hệ thống</h1>
+                    <p class="text-muted">Quản lý nguồn tham khảo, đồng bộ, thông báo và các chính sách vận hành.</p>
+                </div>
+                <div class="acts" style="margin: 0;">
+                    <button type="button" class="btn btn-outline" id="btn-cancel">Hủy thay đổi</button>
+                    <button type="submit" form="settings-form" class="btn btn-primary" id="btn-save-top">Lưu cài đặt</button>
+                </div>
+            </header>
+
+            <div class="alert alert-info" style="margin-bottom: 24px;">
+                <span data-icon="info" data-size="16"></span>
+                <div>
+                    <b>Môi trường minh họa - Không có kết nối thực</b>
+                    Trạng thái nguồn và lịch đồng bộ dưới đây là dữ liệu mẫu. Lưu cài đặt không khởi tạo kết nối này tác vụ thực tế.
+                </div>
+            </div>
+
+            <form id="settings-form">
+                <div class="settings-layout">
+                    
+                    <!-- CỘT TRÁI: FORM CÀI ĐẶT -->
+                    <div>
+                        <!-- Section 1: Nguồn tham khảo & tích hợp -->
+                        <section class="card settings-section">
+                            <h2>Nguồn tham khảo &amp; tích hợp</h2>
+                            
+                            <div class="source-list">
+                                <div class="source-list-item">
+                                    <span>Cổng Dịch vụ công Quốc gia</span>
+                                    <b style="color:var(--blue);">dichvucong.gov.vn</b>
+                                </div>
+                                <div class="source-list-item">
+                                    <span>Cơ sở dữ liệu văn bản pháp luật</span>
+                                    <b style="color:var(--blue);">vbp1.vn</b>
+                                </div>
+                                <div class="source-list-item">
+                                    <span>Nguồn địa phương</span>
+                                    <span class="muted">Chưa thêm địa chỉ</span>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <label class="lbl">Nguồn đang chọn</label>
+                                <select class="input" id="source-select">
+                                    <option value="Cổng Dịch vụ công Quốc gia">Cổng Dịch vụ công Quốc gia</option>
+                                    <option value="Cơ sở dữ liệu văn bản pháp luật">Cơ sở dữ liệu văn bản pháp luật</option>
+                                </select>
+                            </div>
+
+                            <div style="margin-bottom: 16px;">
+                                <label class="lbl">Địa chỉ tham khảo</label>
+                                <input class="input" id="source-url" value="https://dichvucong.gov.vn">
+                                <p class="hint">Trang tham khảo chính thức, không mặc định là API được phép tích hợp.</p>
+                            </div>
+
+                            <div class="acts" style="margin-top: 8px;">
+                                <button type="button" class="btn btn-outline" id="btn-check-source">Kiểm tra cấu hình</button>
+                                <button type="button" class="btn btn-outline" id="btn-add-source">+ Thêm nguồn</button>
+                            </div>
+                        </section>
+
+                        <!-- Section 2: Chính sách đồng bộ AI -->
+                        <section class="card settings-section">
+                            <h2>Chính sách đồng bộ AI</h2>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label class="lbl">Tần suất kiểm tra</label>
+                                <select class="input" id="sync-frequency">
+                                    <option>Hằng ngày</option>
+                                    <option>Hằng tuần</option>
+                                    <option>Hằng tháng</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Phát hiện thay đổi nội dung</b>
+                                    <p>Tạo cảnh báo để người phụ trách đối chiếu nguồn.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="sync-detect" checked><span></span></label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Yêu cầu duyệt thủ công trước công bố</b>
+                                    <p>Bắt buộc cho mọi thay đổi thủ tục.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="sync-manual" checked disabled><span></span></label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Tự động công bố đề xuất AI</b>
+                                    <p>Không cho phép trong chính sách minh họa.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="sync-auto" disabled><span></span></label>
+                            </div>
+                            
+                            <div style="margin-top: 16px; padding: 12px; background: var(--info); border-radius: 6px; font-size: 12px;">
+                                <b style="color: var(--blue);">AI không quyết định yêu cầu pháp lý</b><br>
+                                Mọi thay đổi cần kiểm tra nguồn, hiệu lực và phạm vi áp dụng trước khi công bố.
+                            </div>
+                        </section>
+
+                        <!-- Section 3: Chính sách thông báo -->
+                        <section class="card settings-section">
+                            <h2>Chính sách thông báo</h2>
+                            
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Thông báo khi hồ sơ cần bổ sung</b>
+                                    <p>Gửi thông báo trong ứng dụng theo cài đặt người dùng.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="notify-app" checked><span></span></label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Nhắc checklist chưa hoàn thành</b>
+                                    <p>Tối đa một lời nhắc mỗi tuần trong kịch bản.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="notify-checklist" checked><span></span></label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Cảnh báo nguồn không truy cập được</b>
+                                    <p>Thông báo cho nhóm biên tập và quản trị.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="notify-source" checked><span></span></label>
+                            </div>
+
+                            <div style="margin-top: 16px;">
+                                <label class="lbl">Người nhận cảnh báo vận hành</label>
+                                <select class="input" id="notify-receiver">
+                                    <option>Nhóm quản trị</option>
+                                    <option>Nhóm biên tập</option>
+                                    <option>Cả hai nhóm</option>
+                                </select>
+                            </div>
+                        </section>
+
+                        <!-- Section 4: Cài đặt vận hành -->
+                        <section class="card settings-section">
+                            <h2>Cài đặt vận hành</h2>
+                            
+                            <div style="margin-bottom: 16px;">
+                                <label class="lbl">Ngôn ngữ mặc định</label>
+                                <select class="input" id="op-language">
+                                    <option>Tiếng Việt</option>
+                                    <option>English</option>
+                                </select>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Giới hạn bộ sơ</b>
+                                    <p>Khi bật, hiển thị thông báo ngừng phục vụ tạm thời.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="op-limit"><span></span></label>
+                            </div>
+
+                            <div class="setting-item">
+                                <div class="setting-item-info">
+                                    <b>Lưu nhật ký thao tác quản trị</b>
+                                    <p>Ghi người thực hiện, thời điểm và nội dung thay đổi.</p>
+                                </div>
+                                <label class="switch"><input type="checkbox" id="op-log" checked><span></span></label>
+                            </div>
+                        </section>
+
+                        <!-- Nút Lưu / Hủy (dưới cùng) -->
+                        <div class="acts" style="justify-content: flex-end; gap: 12px; background: var(--card); padding: 16px 20px; border-radius: var(--r); border: 1px solid var(--line); margin-bottom: 24px;">
+                            <button type="button" class="btn btn-outline" id="btn-cancel-bottom">Hủy thay đổi</button>
+                            <button type="submit" class="btn btn-primary" id="btn-save-bottom">Lưu cài đặt</button>
+                        </div>
+                    </div>
+
+                    <!-- CỘT PHẢI: SIDEBAR INFO -->
+                    <aside>
+                        <!-- Trạng thái vận hành -->
+                        <section class="card" style="margin-bottom: 20px;">
+                            <h2 style="font-size: 16px; margin-bottom: 16px;">Trạng thái vận hành</h2>
+                            <div class="kv">
+                                <small style="margin-top: 0;">Môi trường minh họa</small>
+                                <b>Cấu hình hiện tại</b>
+                                <small>Phiên bản</small>
+                                <b>v1.0 - 30/09/2026</b>
+                                <small>Đồng bộ mẫu gần nhất</small>
+                                <b>03/10/2026 - 07:30</b>
+                                <small>Nguồn cài kênh trả</small>
+                                <b>1 chờ xác minh - 1 chưa cấu hình</b>
+                                <small>Người quản lý</small>
+                                <b>Quản trị mẫu</b>
+                            </div>
+                        </section>
+
+                        <!-- Mục lục -->
+                        <section class="card toc" style="margin-bottom: 20px;">
+                            <h2 style="font-size: 16px; margin-bottom: 12px;">Trong trang này</h2>
+                            <a href="#nguon-tich-hop" class="on">Nguồn &amp; tích hợp</a>
+                            <a href="#dong-bo-ai">Đồng bộ AI</a>
+                            <a href="#chinh-sach-thong-bao">Chính sách thông báo</a>
+                            <a href="#cai-dat-van-hanh">Cài đặt vận hành</a>
+                        </section>
+
+                        <!-- Lịch sử cấu hình -->
+                        <section class="card" style="margin-bottom: 20px;">
+                            <h2 style="font-size: 16px; margin-bottom: 12px;">Lịch sử cấu hình</h2>
+                            <div style="font-size: 12px; margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px solid var(--line);">
+                                <b>30/09/2026 - Quản trị mẫu</b>
+                                <p class="muted" style="margin-top: 4px;">Bật yêu cầu duyệt thủ công và nhật ký quản trị.</p>
+                            </div>
+                            <div style="font-size: 12px;">
+                                <b>29/09/2026 - Quản trị mẫu</b>
+                                <p class="muted" style="margin-top: 4px;">Tạo cấu hình cơ sở, chưa kết nối hệ thống nguồn.</p>
+                            </div>
+                        </section>
+
+                        <!-- Cảnh báo kiểm tra -->
+                        <div class="alert alert-warn" style="margin: 0;">
+                            <span data-icon="warn" data-size="16"></span>
+                            <div>
+                                <b>Kiểm tra trước khi lưu</b>
+                                Đảm bảo nguồn được phép sử dụng, quyền truy cập đúng phạm vi và thông báo không chứa dữ liệu nhạy cảm.
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+            </form>
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <!-- Thư viện dùng chung -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    
+    <!-- JS riêng cho trang này -->
+    <script src="../../js/modules/admin-system-settings.js"></script>
+</body>
+</html>

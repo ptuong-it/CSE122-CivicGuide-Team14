@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Người dùng & phân quyền - CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <style>
+        .user-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .user-layout { grid-template-columns: 1fr; }
+        }
+        .user-row { cursor: pointer; transition: background .15s; }
+        .user-row:hover { background: var(--info); }
+        .user-row.selected { background: var(--info); border-left: 3px solid var(--blue); }
+        .perm-checkbox {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            font-size: 12.5px;
+            font-weight: 500;
+            border-bottom: 1px solid var(--line);
+        }
+        .perm-checkbox:last-child { border-bottom: 0; }
+        .perm-checkbox input { accent-color: var(--blue); width: 16px; height: 16px; }
+    </style>
+</head>
+<body data-role="admin" data-page="admin-users" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Quản lý người dùng & phân quyền</h1>
+                    <p class="text-muted">Cấp đúng quyền theo vai trò, kiểm soát truy cập và lưu dấu thay đổi.</p>
+                </div>
+                <button class="btn btn-primary" id="btn-invite">+ Mời người dùng</button>
+            </header>
+
+            <section class="kpi-grid" style="grid-template-columns: repeat(3, 1fr); margin-bottom: 24px;">
+                <article class="kpi-card" style="background: linear-gradient(135deg, #e3f1fb 0%, #d6ecfb 100%);">
+                    <span class="kpi-label" style="color: #1b8de6;">Công dân</span>
+                    <strong class="kpi-value" id="kpi-citizen" style="color: #1b8de6;">--</strong>
+                    <p class="text-muted" style="font-size: 11px; margin-top: 8px;">Checklist, hồ sơ và tài khoản của chính mình</p>
+                </article>
+                <article class="kpi-card" style="background: linear-gradient(135deg, #fef4e6 0%, #fde5c8 100%);">
+                    <span class="kpi-label" style="color: #9a5b10;">Biên tập viên</span>
+                    <strong class="kpi-value" id="kpi-editor" style="color: #9a5b10;">--</strong>
+                    <p class="text-muted" style="font-size: 11px; margin-top: 8px;">Soạn thủ tục, đối chiếu nguồn và gửi duyệt</p>
+                </article>
+                <article class="kpi-card" style="background: linear-gradient(135deg, #f0e8fb 0%, #e3d4f7 100%);">
+                    <span class="kpi-label" style="color: #6b3fa0;">Quản trị viên</span>
+                    <strong class="kpi-value" id="kpi-admin" style="color: #6b3fa0;">--</strong>
+                    <p class="text-muted" style="font-size: 11px; margin-top: 8px;">Duyệt nội dung, cấp quyền và cài đặt hệ thống</p>
+                </article>
+            </section>
+
+            <div class="user-layout">
+                <section class="chart-card table-card" style="padding: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h2 style="font-size: 18px; margin-bottom: 4px;">Người dùng</h2>
+                            <p class="text-muted" style="font-size: 12px;">Hiển thị <span id="user-count">--</span> người dùng mẫu</p>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 12px; margin-bottom: 16px;">
+                        <div>
+                            <label class="lbl" style="font-size: 11px;">Tìm người dùng</label>
+                            <input class="input" id="search-input" placeholder="Nhập tên hoặc email" style="height: 34px; font-size: 12px;">
+                        </div>
+                        <div>
+                            <label class="lbl" style="font-size: 11px;">Vai trò</label>
+                            <select class="input" id="filter-role" style="height: 34px; font-size: 12px;">
+                                <option value="">Tất cả</option>
+                                <option value="citizen">Công dân</option>
+                                <option value="editor">Biên tập viên</option>
+                                <option value="admin">Quản trị viên</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="lbl" style="font-size: 11px;">Trạng thái</label>
+                            <select class="input" id="filter-status" style="height: 34px; font-size: 12px;">
+                                <option value="">Tất cả</option>
+                                <option value="active">Đang hoạt động</option>
+                                <option value="locked">Tạm khóa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div style="overflow-x: auto;">
+                        <table class="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th>Tên hiển thị</th>
+                                    <th>Email</th>
+                                    <th>Vai trò</th>
+                                    <th>Hoạt động</th>
+                                    <th>Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody id="user-tbody">
+                                <tr><td colspan="5" style="text-align:center; padding: 24px; color: var(--muted);">Đang tải dữ liệu...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 11.5px; color: var(--muted);">
+                        <span id="pagination-info">--</span>
+                        <div id="pagination-btns" style="display: flex; gap: 4px;"></div>
+                    </div>
+                </section>
+
+                <aside>
+                    <section class="card" id="user-detail" style="display: none; margin-bottom: 16px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                            <h2 style="font-size: 16px; margin: 0;">Chi tiết người dùng</h2>
+                            <button class="btn-ghost" id="close-detail" style="font-size: 18px; padding: 0; width: 24px; height: 24px;">×</button>
+                        </div>
+                        
+                        <div class="kv" style="margin-bottom: 16px;">
+                            <small style="margin-top: 0;">Tên hiển thị</small>
+                            <b id="detail-name">--</b>
+                            <small>Email</small>
+                            <b id="detail-email" style="font-weight: 400;">--</b>
+                            <small>Vai trò</small>
+                            <b id="detail-role">--</b>
+                        </div>
+
+                        <h3 style="font-size: 13px; margin-bottom: 10px;">Quyền hiện tại</h3>
+                        <div id="permissions-list" style="margin-bottom: 16px;"></div>
+
+                        <div style="padding: 10px 12px; background: var(--info); border-radius: 6px; margin-bottom: 14px;">
+                            <label class="check" style="margin: 0; align-items: flex-start;">
+                                <input type="checkbox" id="detail-access" style="margin-top: 3px;">
+                                <div>
+                                    <b style="font-size: 12px;">Cho phép truy cập</b>
+                                    <p class="muted" style="font-size: 11px; margin-top: 2px;">Tạm khóa sẽ ngăn đăng nhập.</p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <button class="btn btn-primary btn-block" id="btn-save-perm">Lưu phân quyền</button>
+                    </section>
+
+                    <section class="card" style="margin-bottom: 16px;">
+                        <h2 style="font-size: 15px; margin-bottom: 12px;">Lịch sử truy cập</h2>
+                        <div style="font-size: 12px; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid var(--line);">
+                            <b>03/10/2026 · 08:40</b>
+                            <p class="muted" style="margin-top: 2px;">Đăng nhập không gian biên tập.</p>
+                        </div>
+                        <div style="font-size: 12px;">
+                            <b>01/10/2026 · 09:00</b>
+                            <p class="muted" style="margin-top: 2px;">Quản trị mẫu cấp quyền Biên tập viên.</p>
+                        </div>
+                    </section>
+
+                    <section class="card">
+                        <h2 style="font-size: 15px; margin-bottom: 12px;">Mời tài khoản nội bộ</h2>
+                        <div style="margin-bottom: 10px;">
+                            <label class="lbl" style="font-size: 11px;">Email mời</label>
+                            <input class="input" id="invite-email" placeholder="email@example.invalid" style="height: 34px; font-size: 12px;">
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <label class="lbl" style="font-size: 11px;">Vai trò cấp ban đầu</label>
+                            <select class="input" id="invite-role" style="height: 34px; font-size: 12px;">
+                                <option value="editor">Biên tập viên</option>
+                                <option value="admin">Quản trị viên</option>
+                            </select>
+                        </div>
+                        <div style="padding: 10px 12px; background: var(--warn-bg); border-radius: 6px; margin-bottom: 12px; font-size: 11px; color: #5a3a0e;">
+                            <b>Nguyên tắc quyền tối thiểu</b>
+                            <p style="margin-top: 4px;">Biên tập viên không mặc nhiên được xem hồ sơ công dân. Thay đổi quyền quản trị cần được rà soát riêng.</p>
+                        </div>
+                        <div class="acts" style="margin: 0; justify-content: stretch; gap: 8px;">
+                            <button class="btn btn-primary" id="btn-send-invite" style="flex: 1;">Gửi lời mời</button>
+                            <button class="btn btn-outline" id="btn-cancel-invite" style="flex: 1;">Hủy</button>
+                        </div>
+                    </section>
+                </aside>
+            </div>
+
+            <div class="alert alert-info" style="margin-top: 20px;">
+                <span data-icon="info" data-size="16"></span>
+                <div>
+                    <b>Không có dữ liệu cá nhân thật</b>
+                    Tên và email trong danh sách là hư cấu. Việc mời, cấp quyền và tạm khóa chỉ được mô tả bằng giao diện.
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/admin-user-manage.js"></script>
+</body>
+</html>

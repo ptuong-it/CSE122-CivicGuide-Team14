@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm cảnh báo & Đồng bộ AI - CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <style>
+        /* CSS layout 2 cột */
+        .alert-layout {
+            display: grid;
+            grid-template-columns: 1fr 340px;
+            gap: 20px;
+            align-items: start;
+        }
+        @media (max-width: 1024px) {
+            .alert-layout { grid-template-columns: 1fr; }
+        }
+        .alert-row { cursor: pointer; transition: background 0.15s; }
+        .alert-row:hover { background: var(--info); }
+        .alert-row.selected { background: var(--info); border-left: 3px solid var(--blue); }
+        
+        .detail-box { background: var(--bg); padding: 14px; border-radius: 6px; margin-bottom: 14px; font-size: 12.5px; line-height: 1.6; }
+        .detail-label { font-weight: 700; color: var(--muted); font-size: 10.5px; text-transform: uppercase; margin-bottom: 4px; display: block; }
+        .detail-value { color: var(--text); }
+        
+        .ai-proposal { border-left: 4px solid #1b8de6; background: #f0f9ff; padding: 12px; border-radius: 0 6px 6px 0; margin-bottom: 14px; font-size: 12.5px; }
+        :root[data-theme=dark] .ai-proposal { background: #17283a; }
+        .ai-proposal .note { font-size: 11px; color: var(--muted); font-style: italic; margin-top: 6px; }
+    </style>
+</head>
+<body data-role="editor" data-page="editor-ai-alerts" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Trung tâm cảnh báo &amp; Đồng bộ AI</h1>
+                    <p class="text-muted">Đối chiếu thay đổi nguồn, đánh giá rủi ro và ghi nhận quyết định của người rà soát.</p>
+                </div>
+                <button class="btn btn-outline" id="btn-refresh">↻ Làm mới</button>
+            </header>
+
+            <!-- Banner cảnh báo AI -->
+            <div class="alert alert-warn" style="padding: 14px 16px; margin-bottom: 24px;">
+                <span data-icon="warn" data-size="18"></span>
+                <div>
+                    <b>AI chỉ đưa ra gợi ý rà soát</b>
+                    Không tự động thay đổi nội dung pháp lý. Luôn kiểm chứng nguồn và yêu cầu phê duyệt trước khi xuất bản.
+                </div>
+            </div>
+
+            <!-- KPI (4 ô) -->
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <span class="kpi-label">Cảnh báo chưa xử lý</span>
+                    <strong class="kpi-value" id="kpi-unresolved">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Rủi ro cao</span>
+                    <strong class="kpi-value text-danger" id="kpi-high-risk">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Cần đồng bộ</span>
+                    <strong class="kpi-value text-warning" id="kpi-need-sync">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Đã rà soát tuần này</span>
+                    <strong class="kpi-value" id="kpi-reviewed" style="color:var(--muted);">0</strong>
+                </article>
+            </section>
+
+            <!-- Layout chính -->
+            <div class="alert-layout">
+                
+                <!-- Cột Trái: Danh sách cảnh báo -->
+                <div>
+                    <!-- Thanh tìm kiếm & lọc -->
+                    <div class="card" style="padding: 16px 20px; margin-bottom: 16px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div>
+                                <label class="lbl" style="font-size: 11px;">Tìm cảnh báo</label>
+                                <input class="input" id="search-alert" placeholder="Nhập mã hoặc tên thủ tục..." style="height: 34px; font-size: 12px;">
+                            </div>
+                            <div>
+                                <label class="lbl" style="font-size: 11px;">Mức độ</label>
+                                <select class="input" id="filter-severity" style="height: 34px; font-size: 12px;">
+                                    <option value="">Tất cả mức độ</option>
+                                    <option value="high">Rủi ro cao</option>
+                                    <option value="medium">Trung bình</option>
+                                    <option value="low">Thấp</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bảng danh sách -->
+                    <div class="card" style="padding: 20px;">
+                        <h2 style="font-size: 16px; margin-bottom: 16px;">Danh sách cảnh báo</h2>
+                        <div style="overflow-x: auto;">
+                            <table class="table" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        <th>Thủ tục / Mã cảnh báo</th>
+                                        <th>Phát hiện</th>
+                                        <th>Mức độ</th>
+                                        <th>Trạng thái</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="alert-rows">
+                                    <tr><td colspan="4" style="text-align:center;padding:24px;color:var(--muted);">Đang tải dữ liệu...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 16px; font-size: 11.5px; color: var(--muted);">
+                            <span id="alert-count">--</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cột Phải: Chi tiết cảnh báo -->
+                <aside class="card" id="alert-detail-panel" style="padding: 20px; display: none;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px;">
+                        <div>
+                            <h2 style="font-size: 16px; margin: 0;" id="detail-title">--</h2>
+                            <p class="muted" style="font-size: 11.5px; margin-top: 4px;" id="detail-meta">--</p>
+                        </div>
+                        <span class="badge" id="detail-badge" style="padding: 4px 10px;">--</span>
+                    </div>
+
+                    <!-- Nội dung hiện tại -->
+                    <div class="detail-box">
+                        <span class="detail-label">Nội dung hiện tại (Phiên bản cũ)</span>
+                        <div class="detail-value" id="detail-old-text">--</div>
+                    </div>
+
+                    <!-- Đề xuất AI -->
+                    <div class="ai-proposal">
+                        <span class="detail-label" style="color: #1b8de6;">Đề xuất AI - Chưa kiểm chứng</span>
+                        <div class="detail-value" id="detail-new-text">--</div>
+                        <div class="note">Không áp dụng tự động</div>
+                    </div>
+
+                    <!-- Nguồn đối chiếu -->
+                    <div class="detail-box">
+                        <span class="detail-label">Nguồn cần đối chiếu</span>
+                        <div class="detail-value" id="detail-source">--</div>
+                    </div>
+
+                    <!-- Ghi chú -->
+                    <div style="margin-bottom: 16px;">
+                        <label class="lbl" for="reviewer-note">Ghi chú người rà soát</label>
+                        <textarea class="input" id="reviewer-note" rows="3" style="height: auto; padding: 10px; font-size: 12.5px;" placeholder="Nhập ghi chú hoặc lý do từ chối..."></textarea>
+                    </div>
+
+                    <!-- Checkbox xác nhận -->
+                    <label class="check" style="align-items: flex-start; margin-bottom: 16px;">
+                        <input type="checkbox" id="confirm-review" style="margin-top: 3px;">
+                        <span style="font-weight: 400; font-size: 12px;">Tôi đã đối chiếu nguồn và kiểm tra phạm vi áp dụng</span>
+                    </label>
+
+                    <!-- Hành động -->
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <button class="btn btn-primary" id="btn-accept">Chấp nhận vào bản nháp</button>
+                        <button class="btn btn-outline" id="btn-edit">Chỉnh sửa thủ công</button>
+                        <button class="btn btn-outline" id="btn-reject" style="color: #c23030; border-color: #fbdede;">Từ chối cảnh báo</button>
+                    </div>
+                </aside>
+
+            </div>
+
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <!-- Thư viện dùng chung -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    
+    <!-- JS riêng cho trang này -->
+    <script src="../../js/modules/editor-ai.js"></script>
+</body>
+</html>

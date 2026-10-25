@@ -1,0 +1,155 @@
+{
+  "password_note": "Mật khẩu mẫu: MauCivic@202",
+  "users": [
+    {
+      "id": "U001",
+      "name": "Nguyễn An",
+      "display": "An Nguyễn",
+      "email": "an.nguyen@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "03/10/2026"
+    },
+    {
+      "id": "U002",
+      "name": "Trần Bình",
+      "display": "Bình Trần",
+      "email": "binh.tran@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "18/09/2026"
+    },
+    {
+      "id": "U003",
+      "name": "Lê Biên Tập",
+      "display": "Biên tập viên",
+      "email": "editor@example.invalid",
+      "password": "123456",
+      "role": "editor",
+      "status": "active",
+      "joined": "01/08/2026"
+    },
+    {
+      "id": "U004",
+      "name": "Phạm Quản Trị",
+      "display": "Quản trị viên",
+      "email": "admin@example.invalid",
+      "password": "123456",
+      "role": "admin",
+      "status": "active",
+      "joined": "01/08/2026"
+    },
+    {
+      "id": "U005",
+      "name": "Lê Minh",
+      "display": "Minh Lê",
+      "email": "minh.le@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "locked",
+      "joined": "14/09/2026"
+    },
+    {
+      "id": "U006",
+      "name": "Phạm Hà",
+      "display": "Hà Phạm",
+      "email": "ha.pham@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "01/08/2026"
+    },
+    {
+      "id": "U007",
+      "name": "Hoàng Nam",
+      "display": "Nam Hoàng",
+      "email": "nam.hoang@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "12/09/2026"
+    },
+    {
+      "id": "U008",
+      "name": "Vũ Lan",
+      "display": "Lan Vũ",
+      "email": "lan.vu@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "10/09/2026"
+    },
+    {
+      "id": "U009",
+      "name": "Đặng Quân",
+      "display": "Quân Đặng",
+      "email": "quan.dang@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "08/09/2026"
+    },
+    {
+      "id": "U010",
+      "name": "Bùi Tú",
+      "display": "Tú Bùi",
+      "email": "tu.bui@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "05/09/2026"
+    },
+    {
+      "id": "U011",
+      "name": "Ngô Hạnh",
+      "display": "Hạnh Ngô",
+      "email": "hanh.ngo@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "02/09/2026"
+    },
+    {
+      "id": "U012",
+      "name": "Dương Linh",
+      "display": "Linh Dương",
+      "email": "linh.duong@example.invalid",
+      "password": "MauCivic@202",
+      "role": "editor",
+      "status": "active",
+      "joined": "28/08/2026"
+    },
+    {
+      "id": "U013",
+      "name": "Lý Hùng",
+      "display": "Hùng Lý",
+      "email": "hung.ly@example.invalid",
+      "password": "MauCivic@202",
+      "role": "citizen",
+      "status": "active",
+      "joined": "25/08/2026"
+    },
+    {
+      "id": "U014",
+      "name": "Trịnh My",
+      "display": "My Trịnh",
+      "email": "my.trinh@example.invalid",
+      "password": "MauCivic@202",
+      "role": "editor",
+      "status": "active",
+      "joined": "20/08/2026"
+    },
+    {
+      "id": "U015",
+      "name": "Đỗ Vĩ",
+      "display": "Vĩ Đỗ",
+      "email": "vi.do@example.invalid",
+      "password": "MauCivic@202",
+      "role": "admin",
+      "status": "active",
+      "joined": "15/08/2026"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Checklist của tôi – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="checklist" data-tab="checklist">
+    <div id="site-header"></div>
+    <div id="subnav"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Checklist của tôi</div>
+            <div class="page-head">
+                <div>
+                    <h1 style="font-size:24px">Checklist của tôi</h1>
+                    <p class="sub">Lưu thủ tục, chuẩn bị giấy tờ và tiếp tục khi bạn sẵn sàng.</p>
+                </div><a class="btn btn-primary" href="../public/public-service-catalog.html">Thêm thủ tục</a>
+            </div>
+            <div class="layout" style="grid-template-columns:1fr 270px">
+                <div>
+                    <section class="card" style="padding:24px">
+                        <h2 style="font-size:19px;margin-bottom:18px">Đăng ký kết hôn</h2>
+                        <p style="margin-bottom:16px"><span class="st">Đang chuẩn bị</span> <span class="muted"
+                                style="margin-left:10px">Lưu ngày 29/09/2026 · Chưa gửi hồ sơ</span></p>
+                        <div class="saved-head" style="font-size:13px;font-weight:700"><span
+                                data-prog-text="N / T mục đã chuẩn bị">2 / 4 mục đã chuẩn bị</span><span class="link"
+                                data-pct>50%</span></div>
+                        <div class="progress" style="height:7px;margin:10px 0 20px"><i style="width:50%"></i></div>
+                        <h3 style="font-size:14px">Nguyễn An &amp; Trần Bình</h3>
+                        <p class="muted"
+                            style="margin:4px 0 14px;padding-bottom:14px;border-bottom:1px solid var(--line)">Trường hợp
+                            trong nước · Dữ liệu hư cấu dùng để minh họa.</p>
+                        <div id="ck-list"></div>
+                        <div class="alert alert-info" style="margin:18px 0"><span data-icon="info"
+                                data-size="18"></span>
+                            <div><b>Checklist không phải hồ sơ đã nộp</b>Đánh dấu hoàn thành chỉ ghi nhận việc chuẩn bị.
+                                Hồ sơ chỉ xuất hiện trong “Hồ sơ của tôi” sau bước gửi minh họa.</div>
+                        </div>
+                        <div class="acts" style="margin:0"><button class="btn btn-primary" id="save">Lưu tiến
+                                độ</button><button class="btn" id="pdf">Tải checklist PDF</button><a class="btn"
+                                href="citizen-application-create.html">Chuẩn bị hồ sơ</a></div>
+                    </section>
+                    <section class="card">
+                        <h2 style="font-size:19px">Thủ tục đã lưu khác</h2>
+                        <div class="row">
+                            <div>
+                                <h3 style="font-size:14px">Xác nhận tình trạng hôn nhân</h3>
+                                <p>Chưa bắt đầu · 0 / 3 mục chuẩn bị</p>
+                            </div><a class="link" href="citizen-procedure-saved.html">Mở checklist →</a>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <h3 style="font-size:14px">Trích lục kết hôn</h3>
+                                <p>Đã lưu để tham khảo sau khi hoàn tất đăng ký.</p>
+                            </div><a class="link" href="../public/public-procedure-detail.html?id=P003">Xem thủ tục
+                                →</a>
+                        </div>
+                    </section>
+                </div>
+                <aside>
+                    <section class="card kv">
+                        <h2>Thông tin thủ tục</h2><small style="margin-top:0">Trường hợp</small><b>Đăng ký kết hôn trong
+                            nước</b><small>Nơi dự kiến tiếp nhận</small><b>UBND phường Minh Hòa (minh họa)</b><small>Yêu
+                            cầu, thời hạn &amp; lệ phí</small><b>Xác nhận với cơ quan tiếp nhận.</b><a
+                            class="btn btn-block" style="margin-top:14px"
+                            href="../public/public-procedure-detail.html?id=P001">Xem hướng dẫn đầy đủ</a>
+                    </section>
+                    <section class="card side-list">
+                        <h2>Việc cần làm tiếp theo</h2>
+                        <div class="row">
+                            <div>
+                                <h3>Kiểm tra tình trạng hôn nhân</h3>
+                                <p>Hỏi nơi tiếp nhận về yêu cầu cho hai bên.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <h3>Chuẩn bị thông tin cư trú</h3>
+                                <p>Đối chiếu địa chỉ hiện tại trước khi điền hồ sơ.</p>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="alert alert-ok"><span data-icon="ok" data-size="16"></span>
+                        <div><b>Tiến độ đã lưu</b><span id="stamp">Bản minh họa · Cập nhật lúc 16:20, 30/09/2026.</span>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

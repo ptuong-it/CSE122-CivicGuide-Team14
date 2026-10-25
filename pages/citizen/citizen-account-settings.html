@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tài khoản %T bảo mật – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="account" data-tab="account">
+    <div id="site-header"></div>
+    <div id="subnav"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Tài khoản &amp; bảo mật</div>
+            <h1 style="font-size:24px">Tài khoản &amp; bảo mật</h1>
+            <p class="muted" style="margin:8px 0 20px;font-size:13px">Quản lý hồ sơ cá nhân, quyền riêng tư và cách bạn
+                nhận thông báo.</p>
+            <div class="layout" style="grid-template-columns:1fr 270px">
+                <div>
+                    <form class="card auth-card" id="pf" novalidate>
+                        <h2 style="font-size:19px" id="ca-nhan">Thông tin cá nhân</h2>
+                        <div class="field-2">
+                            <div class="field"><label class="lbl" for="name">Họ và tên</label><input class="input"
+                                    id="name" name="name">
+                                <div class="err"></div>
+                            </div>
+                            <div class="field"><label class="lbl" for="display">Tên hiển thị</label><input class="input"
+                                    id="display" name="display"></div>
+                        </div>
+                        <div class="field"><label class="lbl" for="email">Email liên hệ</label><input class="input"
+                                id="email" name="email" type="email">
+                            <div class="hint">Email mẫu, không nhận thư thật.</div>
+                            <div class="err"></div>
+                        </div>
+                        <div class="field"><label class="lbl" for="phone">Số điện thoại</label>
+                            <div class="txt-btn"><input class="input" id="phone" name="phone"
+                                    placeholder="Chưa thêm số điện thoại"><button type="button" class="btn"
+                                    id="addphone" style="height:36px">Thêm số điện thoại</button></div>
+                            <div class="err"></div>
+                        </div>
+                        <div class="field"><label class="lbl" for="addr">Địa chỉ</label><input class="input" id="addr"
+                                name="addr">
+                            <div class="err"></div>
+                        </div>
+                        <div class="acts" style="margin:0"><button class="btn btn-primary">Lưu thông tin</button><button
+                                type="button" class="btn" id="pcancel">Hủy thay đổi</button></div>
+                    </form>
+                    <form class="card auth-card" id="pwf" novalidate>
+                        <h2 style="font-size:19px" id="mat-khau">Mật khẩu &amp; đăng nhập</h2>
+                        <p class="muted" style="font-size:11px">Mật khẩu cập nhật gần nhất</p><b
+                            style="font-size:12.5px;display:block;margin:4px 0 16px" id="pwdate">29/09/2026 · Trạng thái
+                            minh họa</b>
+                        <div class="field-2">
+                            <div class="field"><label class="lbl" for="cur">Mật khẩu hiện tại</label><input
+                                    class="input" id="cur" name="cur" type="password" autocomplete="current-password">
+                                <div class="err"></div>
+                            </div>
+                            <div class="field"><label class="lbl" for="nw">Mật khẩu mới</label><input class="input"
+                                    id="nw" name="nw" type="password" placeholder="Nhập mật khẩu mới"
+                                    autocomplete="new-password">
+                                <div class="hint">Ít nhất 12 ký tự; kết hợp chữ, số và ký tự đặc biệt.</div>
+                                <div class="err"></div>
+                            </div>
+                        </div>
+                        <div class="field"><label class="lbl" for="nw2">Nhập lại mật khẩu mới</label><input
+                                class="input" id="nw2" name="nw2" type="password" placeholder="Nhập lại mật khẩu"
+                                autocomplete="new-password">
+                            <div class="err"></div>
+                        </div>
+                        <div class="acts" style="margin:0 0 18px"><button class="btn btn-primary">Đổi mật
+                                khẩu</button><button type="button" class="btn" id="logout-others">Đăng xuất các phiên
+                                khác</button></div>
+                        <div class="pref" style="border-top:1px solid var(--line);margin-top:6px">
+                            <div><b>Xác minh hai bước</b><span class="d">Tăng bảo mật bằng một bước xác minh bổ
+                                    sung.</span></div><label class="switch"><input type="checkbox" id="tfa"
+                                    aria-label="Xác minh hai bước"><span></span></label>
+                        </div>
+                        <div class="acts" style="margin:0"><span class="tag tag-warn" id="tfa-badge">Chưa
+                                bật</span><button type="button" class="btn" id="tfa-setup">Thiết lập xác minh</button>
+                        </div>
+                    </form>
+                    <section class="card" id="thong-bao">
+                        <h2 style="font-size:19px">Tùy chọn thông báo</h2>
+                        <div class="pref">
+                            <div><b>Cập nhật hồ sơ</b><span class="d">Trạng thái tiếp nhận, yêu cầu bổ sung và kết
+                                    quả.</span></div><label class="switch"><input type="checkbox" data-p="rec"
+                                    aria-label="Cập nhật hồ sơ"><span></span></label>
+                        </div>
+                        <div class="pref">
+                            <div><b>Nhắc checklist</b><span class="d">Nhắc bạn hoàn thiện các mục chưa chuẩn bị.</span>
+                            </div><label class="switch"><input type="checkbox" data-p="chk"
+                                    aria-label="Nhắc checklist"><span></span></label>
+                        </div>
+                        <div class="pref">
+                            <div><b>Thủ tục đã lưu</b><span class="d">Thông báo khi nội dung hướng dẫn thay đổi.</span>
+                            </div><label class="switch"><input type="checkbox" data-p="sav"
+                                    aria-label="Thủ tục đã lưu"><span></span></label>
+                        </div>
+                        <div class="pref">
+                            <div><b>Nhận bản sao qua email</b><span class="d">Áp dụng cho thông báo hồ sơ và bảo
+                                    mật.</span></div><label class="switch"><input type="checkbox" data-p="mail"
+                                    aria-label="Nhận bản sao qua email"><span></span></label>
+                        </div>
+                        <button class="btn btn-primary" id="savepref" style="margin-top:14px">Lưu tùy chọn</button>
+                    </section>
+                    <section class="card" id="rieng-tu">
+                        <h2 style="font-size:19px">Quyền riêng tư &amp; dữ liệu</h2>
+                        <div class="pref">
+                            <div><b>Chia sẻ dữ liệu sử dụng để cải thiện trải nghiệm</b><span class="d">Chỉ dữ liệu tổng
+                                    hợp; không chia sẻ nội dung giấy tờ cá nhân.</span></div><label
+                                class="switch"><input type="checkbox" data-p="usage"
+                                    aria-label="Chia sẻ dữ liệu sử dụng để cải thiện trải nghiệm"><span></span></label>
+                        </div>
+                        <div class="acts"><button class="btn" data-demo="yêu cầu bản sao dữ liệu">Yêu cầu bản sao dữ
+                                liệu</button><button class="btn" data-demo="yêu cầu xóa tài khoản">Yêu cầu xóa tài
+                                khoản</button></div>
+                        <p class="muted">Trước khi xóa, kiểm tra hồ sơ và tải dữ liệu bạn muốn giữ. Các thao tác ở đây
+                            chỉ là giao diện mẫu.</p>
+                    </section>
+                </div>
+                <aside>
+                    <section class="card kv">
+                        <h2>Tài khoản của bạn</h2><span class="tag">Công dân</span><small>Tên hiển thị</small><b
+                            id="s-display">An Nguyễn</b><small>Tham gia</small><b>29/09/2026</b><small>Phiên hiện
+                            tại</small><b>Máy tính · Trình duyệt web</b><small>Hoạt động gần nhất</small><b>03/10/2026 ·
+                            08:30</b>
+                        <div class="alert alert-info" style="margin:16px 0 0"><span data-icon="info"
+                                data-size="16"></span>
+                            <div><b>Thông tin hoàn toàn hư cấu</b>Không dùng hồ sơ cá nhân thật để thử các màn hình này.
+                            </div>
+                        </div>
+                    </section>
+                    <section class="card toc" style="position:sticky;top:64px">
+                        <h2>Trong trang này</h2><a class="on" href="#ca-nhan">Thông tin cá nhân</a><a
+                            href="#mat-khau">Mật khẩu &amp; đăng nhập</a><a href="#thong-bao">Tùy chọn thông báo</a><a
+                            href="#rieng-tu">Quyền riêng tư &amp; dữ liệu</a>
+                    </section>
+                    <section class="card">
+                        <h2>Bảo vệ tài khoản</h2>
+                        <p class="muted" style="margin:10px 0 14px">Không chia sẻ mật khẩu hoặc mã khôi phục. CivicGuide
+                            không yêu cầu bạn gửi mật khẩu qua biểu mẫu hỗ trợ.</p><a class="btn btn-block" href="#"
+                            data-demo="hướng dẫn bảo mật">Hướng dẫn bảo mật</a>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/modules/form-validator.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

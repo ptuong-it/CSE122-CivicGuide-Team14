@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Danh mục dịch vụ công – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="catalog">
+    <div id="site-header"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Danh mục dịch vụ công</div>
+            <h1 style="font-size:24px">Danh mục dịch vụ công</h1>
+            <p class="muted" style="margin-top:8px;font-size:13px">42 thủ tục được sắp xếp theo những sự kiện quan trọng
+                trong cuộc sống.</p>
+            <form class="search-bar" action="public-procedure-search.html">
+                <div><label class="lbl" for="q">Tìm trong danh mục</label><input id="q" name="q" class="input"
+                        placeholder="Nhập tên thủ tục hoặc từ khóa"></div><button class="btn btn-primary">Tìm
+                    kiếm</button>
+            </form>
+            <div class="layout" style="grid-template-columns:1fr 250px">
+                <div>
+                    <div class="section-title" style="margin:0 0 12px">
+                        <h2>Tất cả sự kiện cuộc sống</h2><span class="badge-count">6 nhóm · 42 thủ tục</span>
+                    </div>
+                    <div class="grid-2" id="groups"></div>
+                </div>
+                <aside>
+                    <div class="card">
+                        <h2>Bộ lọc</h2><label class="lbl">Địa phương</label><select class="input">
+                            <option>Tất cả địa phương</option>
+                        </select>
+                        <label class="lbl" style="margin:16px 0 4px">Cấp tiếp nhận</label><label class="check"><input
+                                type="checkbox">Cấp xã / phường</label><label class="check"><input type="checkbox">Cấp
+                            tỉnh / thành phố</label><label class="check"><input type="checkbox">Cơ quan chuyên
+                            ngành</label>
+                        <label class="lbl" style="margin:16px 0 4px">Hình thức thực hiện</label><label
+                            class="check"><input type="checkbox">Trực tiếp</label><label class="check"><input
+                                type="checkbox">Trực tuyến</label>
+                        <button class="btn btn-primary btn-block" style="margin-top:14px">Áp dụng bộ lọc</button><button
+                            class="btn btn-block" style="margin-top:10px">Xóa bộ lọc</button>
+                    </div>
+                    <div class="card">
+                        <h2>Thủ tục phổ biến</h2>
+                        <div class="row">
+                            <div>
+                                <h3>Đăng ký kết hôn</h3>
+                                <p>Kết hôn &amp; gia đình</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <h3>Đăng ký khai sinh</h3>
+                                <p>Sinh con</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <h3>Đăng ký thường trú</h3>
+                                <p>Chuyển nhà &amp; cư trú</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>Chưa biết bắt đầu từ đâu?</h2>
+                        <p class="muted" style="margin-bottom:14px">Khám phá hướng dẫn theo sự kiện cuộc sống để chọn
+                            đúng thủ tục.</p><a class="btn btn-block" href="../../index.html">Khám phá hướng dẫn</a>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script>document.addEventListener("DOMContentLoaded", async () => { const d = await API.load(BASE); document.getElementById("groups").innerHTML = d.groups.map(g => `<section class="card cat-card"><div class="head"><span>${icon(g.icon)}</span><div><h3>${g.name}</h3><span class="muted">${g.count} thủ tục</span></div></div>${g.items.map(i => `<div class="row"><h3>${i}</h3><a class="link" href="public-procedure-search.html?q=${encodeURIComponent(i.toLowerCase())}">Xem →</a></div>`).join("")}<a class="link" href="public-procedure-search.html">Xem tất cả trong nhóm →</a></section>`).join("") });</script>
+    <script src="../../js/main.js"></script>
+</body>
+
+</html>

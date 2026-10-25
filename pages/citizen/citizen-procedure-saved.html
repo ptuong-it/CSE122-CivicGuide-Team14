@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Thủ tục đã lưu – CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+
+<body data-base="../../" data-nav="checklist" data-page="saved" data-tab="saved">
+    <div id="site-header"></div>
+    <div id="subnav"></div>
+    <main>
+        <div class="container">
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › Cá nhân › Thủ tục đã lưu</div>
+            <div class="page-head">
+                <div>
+                    <h1 style="font-size:24px">Thủ tục đã lưu</h1>
+                    <p class="sub">Giữ lại hướng dẫn cần dùng và tiếp tục chuẩn bị theo kế hoạch của bạn.</p>
+                </div><a class="btn btn-primary" href="../public/public-service-catalog.html">Thêm thủ tục</a>
+            </div>
+            <section class="card" style="padding:18px 20px">
+                <div class="filter-row">
+                    <div><label class="lbl" for="q">Tìm trong thủ tục đã lưu</label><input id="q" class="input"
+                            placeholder="Nhập tên thủ tục hoặc từ khóa"></div>
+                    <div><label class="lbl">Lĩnh vực</label><select class="input">
+                            <option>Tất cả lĩnh vực</option>
+                            <option>Hộ tịch</option>
+                        </select></div>
+                    <div><label class="lbl">Sắp xếp</label><select class="input">
+                            <option>Lưu gần đây nhất</option>
+                        </select></div>
+                </div>
+                <div class="pills" id="pills"></div>
+            </section>
+            <div class="layout" style="grid-template-columns:1fr 270px">
+                <div>
+                    <div id="list"></div>
+                    <p class="muted" id="count"></p>
+                </div>
+                <aside>
+                    <section class="card side-list">
+                        <h2>Lưu và chuẩn bị khác nhau</h2>
+                        <div class="row">
+                            <div>
+                                <h3>Lưu thủ tục</h3>
+                                <p>Giữ hướng dẫn để đọc lại. Không tự tạo hồ sơ hoặc gửi đến cơ quan.</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div>
+                                <h3>Tạo checklist</h3>
+                                <p>Theo dõi các mục giấy tờ cần chuẩn bị cho trường hợp của bạn.</p>
+                            </div>
+                        </div><a class="btn btn-block" href="citizen-checklist-manage.html">Mở Checklist của tôi</a>
+                    </section>
+                    <div class="alert alert-warn"><span data-icon="warn" data-size="16"></span>
+                        <div><b>Kiểm tra độ mới của nguồn</b>Ngày rà soát chỉ là thông tin biên tập mẫu, không xác nhận
+                            hiệu lực pháp lý. Đối chiếu yêu cầu, thời hạn và lệ phí tại nơi tiếp nhận.</div>
+                    </div>
+                    <section class="card">
+                        <h2>Gợi ý cho kế hoạch kết hôn</h2>
+                        <p class="muted" style="margin-bottom:14px">Xem toàn bộ hành trình để hiểu mối liên hệ giữa đăng
+                            ký, xác nhận tình trạng hôn nhân và trích lục.</p><a class="btn btn-block"
+                            href="../public/public-procedure-detail.html?id=G01">Hướng dẫn sự kiện: Kết hôn</a>
+                    </section>
+                    <section class="card">
+                        <h2>Cần trợ giúp?</h2>
+                        <p class="muted" style="margin-bottom:12px">Bạn có thể bỏ lưu mà không xóa checklist hoặc hồ sơ
+                            đã tạo.</p><a class="link" href="#">Cách quản lý thủ tục đã lưu →</a>
+                    </section>
+                </aside>
+            </div>
+        </div>
+    </main>
+    <div id="site-footer"></div>
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/citizen-app.js"></script>
+</body>
+
+</html>

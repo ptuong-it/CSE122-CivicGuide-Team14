@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tổng quan thống kê - Quản trị viên | CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* CSS cho thanh tìm kiếm (đã bỏ icon) */
+        .admin-header-search {
+            width: 280px;
+        }
+        .admin-header-search input {
+            width: 100%;
+            height: 36px;
+            padding: 0 12px; /* Chỉnh lại padding vì không còn icon */
+            border: 1px solid var(--line);
+            border-radius: 6px;
+            font-size: 12.5px;
+            background: var(--card);
+            color: var(--text);
+        }
+        .admin-header-search input:focus {
+            outline: 2px solid var(--blue);
+            border-color: transparent;
+        }
+        
+        .section-heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 32px 0 16px;
+        }
+        .kpi-value {
+            font-size: 32px;
+        }
+        .chart-title {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--navy);
+        }
+    </style>
+</head>
+<body data-role="admin" data-page="admin-dashboard" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <!-- Tiêu đề & Tìm kiếm -->
+            <header class="page-header">
+                <div>
+                    <h1>Tổng quan thống kê & giám sát</h1>
+                    <p class="text-muted" style="margin-top: 4px;">Nhóm chức năng: Quản trị hệ thống</p>
+                </div>
+                <form action="../public/public-procedure-search.html" method="get" role="search" class="admin-header-search">
+                    <input name="q" type="search" placeholder="Tìm kiếm thủ tục..." aria-label="Tìm kiếm thủ tục">
+                </form>
+            </header>
+
+            <!-- Khối KPI -->
+            <section class="kpi-grid">
+                <article class="kpi-card">
+                    <span class="kpi-label">Thủ tục đang hoạt động</span>
+                    <strong class="kpi-value" id="kpi-active-procedures">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Yêu cầu chờ duyệt</span>
+                    <strong class="kpi-value" id="kpi-pending-apps">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Cập nhật rủi ro cao<br><span style="font-size:10px;color:#c23030;text-transform:none;font-weight:normal;">Cần ưu tiên</span></span>
+                    <strong class="kpi-value text-danger" id="kpi-high-risk">--</strong>
+                </article>
+                <article class="kpi-card">
+                    <span class="kpi-label">Thủ tục cần đồng bộ<br><span style="font-size:10px;color:#c47a1a;text-transform:none;font-weight:normal;">Cảnh báo AI</span></span>
+                    <strong class="kpi-value text-warning" id="kpi-need-sync">--</strong>
+                </article>
+            </section>
+
+            <!-- Thanh tiêu đề "Thống kê & giám sát" -->
+            <div class="section-heading">
+                <div>
+                    <h2 style="font-size: 18px; margin: 0;">Thống kê & giám sát</h2>
+                    <p class="text-muted" style="font-size: 11.5px; margin-top: 4px;">Kỳ báo cáo: Tháng 1 – Tháng 12 năm 2024 | Cập nhật lần cuối: 13/12/2024, 09:30</p>
+                </div>
+                <div class="acts" style="margin: 0;">
+                    <button class="btn btn-outline" id="btn-export-csv">⬇ Xuất dữ liệu</button>
+                    <button class="btn btn-primary" id="btn-refresh">🔄 Cập nhật</button>
+                </div>
+            </div>
+
+            <!-- Charts Row 1 -->
+            <div class="charts-row">
+                <div class="chart-card">
+                    <h3 class="chart-title">Số hồ sơ theo năm</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-bar-year"></canvas>
+                    </div>
+                </div>
+                <div class="chart-card">
+                    <h3 class="chart-title">Điểm cập nhật thủ tục (theo nhóm)</h3>
+                    <div class="chart-container">
+                        <canvas id="chart-line-group"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ĐÃ XÓA KHỐI AI SUGGESTION Ở ĐÂY -->
+
+            <!-- Metrics Row (6 ô) -->
+            <section class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Thời gian xử lý trung bình (Tổng hợp)</span>
+                    <span class="metric-value">14 ngày</span>
+                    <span class="metric-sub">Tính từ khi tạo</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Thời gian xử lý của người dùng</span>
+                    <span class="metric-value">14 ngày</span>
+                    <span class="metric-sub">Tính từ khi tạo</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Mức hài lòng (Tổng hợp)</span>
+                    <span class="metric-value">4.2/5</span>
+                    <span class="metric-stars">★★★★★</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Mức hài lòng (Tổng hợp)</span>
+                    <span class="metric-value text-warning">2.7/5</span>
+                    <span class="metric-stars text-warning">★★★☆☆</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Thời gian gián đoạn (giờ)</span>
+                    <span class="metric-value">0.5 giờ</span>
+                    <span class="metric-sub">/tháng</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">Thời gian gián đoạn (giờ)</span>
+                    <span class="metric-value">0.3 giờ</span>
+                    <span class="metric-sub">/tháng</span>
+                </div>
+            </section>
+
+            <!-- Map Heatmap & Alerts -->
+            <div class="charts-row map-row">
+                <div class="chart-card map-card">
+                    <h3 class="chart-title">Tương tác thủ tục theo quận/huyện và khu vực ưu tắc</h3>
+                    <div class="map-placeholder">
+                        <div class="heatmap-simulation"></div>
+                    </div>
+                    <div class="map-legend">
+                        <span>◀ 0%</span>
+                        <div class="legend-bar"></div>
+                        <span>100% ▶</span>
+                    </div>
+                </div>
+                
+                <div class="alerts-col" style="align-self: center;">
+                    <div class="alert-box alert-danger">
+                        <span class="alert-icon">⚠</span>
+                        <p><strong>Cảnh báo AI:</strong> Tăng vọt hồ sơ "Hộ khẩu". Kiểm tra nguồn lực.</p>
+                    </div>
+                    <div class="alert-box alert-warning">
+                        <span class="alert-icon">⚠</span>
+                        <p><strong>Cảnh báo AI:</strong> Có <span id="alert-count">--</span> thủ tục cần đồng bộ với Cổng DVC Quốc gia.</p>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <div id="app-toast"></div>
+
+    <!-- JS -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    <script src="../../js/modules/admin-dashboard.js"></script>
+</body>
+</html>

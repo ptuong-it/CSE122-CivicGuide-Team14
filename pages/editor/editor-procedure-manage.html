@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="auto">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý thủ tục - Biên tập viên | CivicGuide</title>
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../css/components.css">
+    <link rel="stylesheet" href="../../css/responsive.css">
+</head>
+<body data-role="editor" data-page="editor-procedures" data-base="../../">
+    
+    <div id="app-header"></div>
+    
+    <div class="app-layout">
+        <div id="app-sidebar"></div>
+        
+        <main class="main-content">
+            <header class="page-header">
+                <div>
+                    <h1>Quản lý thủ tục</h1>
+                    <p class="text-muted">Biên tập nội dung hướng dẫn và theo dõi trạng thái duyệt.</p>
+                </div>
+                <a href="editor-procedure-edit.html" class="btn btn-primary">+ Soạn thủ tục</a>
+            </header>
+
+            <!-- KPI (JS sẽ tính động) -->
+            <div class="charts-row">
+                <article class="chart-card">
+                    <span class="metric-label">Bản nháp của tôi</span>
+                    <strong class="metric-value" id="kpi-drafts">--</strong>
+                </article>
+                <article class="chart-card">
+                    <span class="metric-label">Đang chờ duyệt</span>
+                    <strong class="metric-value" id="kpi-pending">--</strong>
+                </article>
+                <article class="chart-card">
+                    <span class="metric-label">Cần chỉnh sửa</span>
+                    <strong class="metric-value" id="kpi-revision">--</strong>
+                </article>
+            </div>
+
+            <section class="chart-card table-card" style="padding: 20px;">
+                <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+                    <div>
+                        <h2 style="font-size:18px; margin-bottom:4px;">Nội dung của tôi</h2>
+                        <p class="text-muted" style="font-size:12px;">Dữ liệu minh họa</p>
+                    </div>
+                    <div style="position:relative;">
+                        <input class="form-input" id="editor-search" placeholder="Tìm thủ tục..." style="width:250px; padding-left:32px;">
+                        <span style="position:absolute; left:10px; top:10px; color:var(--muted);">🔍</span>
+                    </div>
+                </div>
+
+                <div style="overflow-x:auto;">
+                    <table class="table" style="width:100%;">
+                        <thead>
+                            <tr>
+                                <th>Thủ tục</th>
+                                <th>Lĩnh vực</th>
+                                <th>Cập nhật</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="editor-rows">
+                            <tr><td colspan="5" style="text-align:center;padding:24px;color:var(--muted);">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; font-size:11.5px; color:var(--muted);">
+                    <span id="editor-count">Đang tải...</span>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <div id="app-toast"></div>
+    
+    <!-- Thư viện dùng chung -->
+    <script src="../../js/api.js"></script>
+    <script src="../../js/ui-components.js"></script>
+    <script src="../../js/main.js"></script>
+    
+    <!-- JS riêng cho trang này -->
+    <script src="../../js/modules/editor-procedure-manage.js"></script>
+</body>
+</html>
