@@ -54,7 +54,8 @@ function renderEmpty() {
   <div class="row"><div><h3>Đăng ký kết hôn</h3><p>Hướng dẫn trường hợp trong nước · Chuẩn bị hồ sơ của hai bên</p></div><a class="link" href="public-procedure-detail.html?id=P001">Xem →</a></div>
   <div class="row"><div><h3>Hướng dẫn sự kiện: Kết hôn</h3><p>Các việc cần kiểm tra trước và sau khi đăng ký</p></div><a class="link" href="public-procedure-detail.html?id=G01">Xem →</a></div></div>
  <div class="card"><h2>Vẫn chưa tìm được điều bạn cần?</h2><p>Mô tả nhu cầu trong một câu ngắn để gửi câu hỏi hỗ trợ. Không kèm số định danh hoặc giấy tờ cá nhân thật.</p><div class="acts"><a class="btn btn-primary" href="#">Liên hệ hỗ trợ</a><a class="btn" href="#">Trung tâm trợ giúp</a></div></div></div></div>`;
-    const c = $('#cnt'); if (c) c.textContent = '0'; hydrateIcons();
+    const c = $('#cnt'); if (c) c.textContent = '0';
+    if (window.hydrateIcons) window.hydrateIcons();
     $('#apply').onclick = () => { const p = new URLSearchParams({ q: state.q }); const f = $('#f-field').value, m = $('#f-form').value; if (f) p.set('field', f); if (m) p.set('form', m); location.search = p };
 }
 document.addEventListener('DOMContentLoaded', async () => {
@@ -63,7 +64,8 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (!all.length) return renderEmpty(); if (state.sort === 'az') all.sort((a, b) => a.title.localeCompare(b.title, 'vi')); renderResults(data, all);
         document.querySelectorAll('[data-p]').forEach(b => b.onclick = () => { state.page = +b.dataset.p || 1; draw() });
         document.querySelectorAll('[data-type]').forEach(b => b.onchange = () => { b.checked ? state.types.add(b.dataset.type) : state.types.delete(b.dataset.type); draw() });
-        $('#sort').onchange = e => { state.sort = e.target.value; draw() }
+        const sortEl = $('#sort');
+        if (sortEl) sortEl.onchange = e => { state.sort = e.target.value; draw() };
     };
     draw();
 });

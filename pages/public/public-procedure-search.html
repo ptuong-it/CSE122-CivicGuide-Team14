@@ -10,23 +10,25 @@
     <link rel="stylesheet" href="../../css/responsive.css">
 </head>
 
-<body data-base="../../" data-nav="catalog">
+<body data-base="../../" data-nav="catalog" data-page="procedure-search">
     <div id="site-header"></div>
     <main>
         <div class="container">
-            <div class="crumb"><a href="../../index.html">Trang chủ</a> › <a href="public-service-catalog.html">Dịch vụ
-                    công</a> › Kết quả tìm kiếm</div>
+            <div class="crumb"><a href="../../index.html">Trang chủ</a> › <a href="public-service-catalog.html">Dịch vụ công</a> › Kết quả tìm kiếm</div>
             <h1 style="font-size:24px">Kết quả tìm kiếm</h1>
-            <p class="muted" style="margin:8px 0 20px;font-size:13px">Tìm đúng thủ tục và hướng dẫn phù hợp với hoàn
-                cảnh của bạn.</p>
-            <div id="app"></div>
+            <p class="muted" style="margin:8px 0 20px;font-size:13px">Tìm đúng thủ tục và hướng dẫn phù hợp với hoàn cảnh của bạn.</p>
+            <div id="app">
+                <div class="card" style="text-align:center;padding:40px;color:var(--muted);">Đang tìm kiếm...</div>
+            </div>
         </div>
     </main>
     <div id="site-footer"></div>
+    
+    <!-- SỬA THỨ TỰ: main.js PHẢI đứng trước procedure-search.js -->
     <script src="../../js/api.js"></script>
     <script src="../../js/ui-components.js"></script>
-    <script src="../../js/modules/procedure-search.js"></script>
     <script src="../../js/main.js"></script>
+    <script src="../../js/modules/procedure-search.js"></script>
 </body>
 
 </html>

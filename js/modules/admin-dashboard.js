@@ -1,10 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     if (document.body.dataset.page !== 'admin-dashboard') return;
 
-    // ==========================================
-    // 1. LẤY DỮ LIỆU TỪ NHIỀU NGUỒN
     try {
-        // Nguồn 1: File JSON tĩnh
         const procData = await API.load('../../', 'assets/data/procedures.json');
         const allProcedures = procData.results || [];
 
@@ -12,52 +9,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         const staticApps = appsData || [];
 
         const aiAlerts = await API.load('../../', 'assets/data/ai-alerts.json');
-
-        // Nguồn 2: LocalStorage (hồ sơ công dân nộp thêm)
         const localApps = JSON.parse(localStorage.getItem('civicguide-applications') || '[]');
-
-        // Nguồn 3: LocalStorage (trạng thái xử lý AI của Editor)
         const aiStates = JSON.parse(localStorage.getItem('civicguide-ai-alert-states') || '{}');
 
-        // GỘP 2 NGUỒN hồ sơ (tránh trùng lặp theo code)
         const appsMap = new Map();
         [...staticApps, ...localApps].forEach(app => {
             appsMap.set(app.code, app);
         });
         const mergedApps = Array.from(appsMap.values());
 
-        // ==========================================
-        // 2. TÍNH TOÁN CÁC CON SỐ KPI
-        // ==========================================
-
-        // Thủ tục đang hoạt động: Đếm procedures type = 'Thủ tục'
         const activeProcedures = allProcedures.filter(p => p.type === 'Thủ tục').length;
 
-        // Yêu cầu chờ duyệt: Đếm hồ sơ chờ xử lý (chưa duyệt, chưa hoàn thành)
         const pendingApps = mergedApps.filter(a =>
             a.status === 'Chờ tiếp nhận' ||
             a.status === 'Cần bổ sung' ||
             a.status === 'Đang soạn'
         ).length;
 
-        // Cập nhật rủi ro cao: Đếm cảnh báo AI có severity = 'high' VÀ chưa xử lý
         const highRisk = aiAlerts.filter(a =>
             a.severity === 'high' &&
             !(aiStates[a.id] && aiStates[a.id].status !== 'pending')
         ).length;
 
-        // Thủ tục cần đồng bộ: Đếm tổng cảnh báo AI chưa xử lý
         const needSync = aiAlerts.filter(a =>
             !(aiStates[a.id] && aiStates[a.id].status !== 'pending')
         ).length;
 
-        // Ghi kết quả ra HTML
         document.getElementById('kpi-active-procedures').textContent = activeProcedures;
         document.getElementById('kpi-pending-apps').textContent = pendingApps;
         document.getElementById('kpi-high-risk').textContent = highRisk;
         document.getElementById('kpi-need-sync').textContent = needSync;
 
-        // Cập nhật text trong Alert Box
         const alertCountEl = document.getElementById('alert-count');
         if (alertCountEl) alertCountEl.textContent = needSync;
 
@@ -65,9 +47,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Lỗi tải dữ liệu KPI:', e);
     }
 
-    // ==========================================
-    // 3. VẼ BIỂU ĐỒ (Giữ nguyên)
-    // ==========================================
     initBarChart();
     initLineChart();
     initExportCSV();
@@ -140,7 +119,7 @@ function initExportCSV() {
     btn.addEventListener('click', () => {
         const csvContent = "data:text/csv;charset=utf-8,\uFEFFTháng,Năm hiện tại,Năm trước\nTh1,180,100\nTh2,240,120\nTh3,340,160\nTh4,220,140\nTh5,290,220\nTh6,310,180\nTh7,220,230\nTh8,250,220\nTh9,270,240\nTh10,300,240\nTh11,350,280\nTh12,410,270";
         const link = document.createElement("a");
-        link.setAttribute("href", encodeURI(csvContent));
+        link.setAttribute("href", encodeURIComponent(csvContent));
         link.setAttribute("download", `civicguide_thongke_${new Date().toISOString().split('T')[0]}.csv`);
         document.body.appendChild(link); link.click(); document.body.removeChild(link);
     });

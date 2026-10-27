@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (document.getElementById('subnav')) renderSubnav(document.body.dataset.tab);
     hydrateIcons();
 
-    // Admin/Editor  ← THÊM
+    // Admin/Editor
     if (document.getElementById('app-header')) renderAppHeader();
     if (document.getElementById('app-sidebar')) renderSidebar(document.body.dataset.page);
 
